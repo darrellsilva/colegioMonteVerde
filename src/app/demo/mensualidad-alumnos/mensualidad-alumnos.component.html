@@ -1,0 +1,94 @@
+<div class="table-responsive">
+  <table class="table table-desktop">
+    <thead>
+    <tr>
+      <th>Nombre</th>
+      <th>Apellido</th>
+      <th>Email Apoderado</th>
+      <th>Cuotas</th>
+      <th></th>
+    </tr>
+    </thead>
+    <tbody>
+      @for (alumno of mensualidadAlumos; track alumno.id) {
+        <tr>
+          <td>{{ alumno.nombre }}</td>
+          <td>{{ alumno.apellido }}</td>
+          <td>{{ alumno.emailPadre }}</td>
+          <td>{{ alumno.mesesPago.length }} / 10</td>
+          <td>
+            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                    (click)="dataDetalle(alumno.id)">Ver detalle
+            </button>
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+
+  @for (mensualidadMobile of mensualidadAlumos; track mensualidadMobile.id) {
+    <div class="card card-mobile" style="width: 100%">
+      <div class="card-body">
+        <h5 class="card-title">{{ mensualidadMobile.nombre }} {{ mensualidadMobile.apellido }}</h5>
+        <p class="card-text"><strong>Correo</strong> {{ mensualidadMobile.emailPadre }}</p>
+          <p class="card-text"><strong>Cuotas</strong> {{ mensualidadMobile.mesesPago.length }} / 10</p>
+        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                (click)="dataDetalle(mensualidadMobile.id)">Ver detalle
+        </button>
+      </div>
+    </div>
+  }
+
+
+
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Detalle mensualidades</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <ul class="list-group">
+            <li class="list-group-item disabled"
+                aria-disabled="true">{{ tableModal.nombre }} {{ tableModal.apellido }}
+            </li>
+            <li class="list-group-item"><p class="d-inline-flex gap-1">
+              <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseExample" role="button"
+                 aria-expanded="false" aria-controls="collapseExample">
+                Mensualidades pagas
+              </a>
+            </p>
+              <div class="collapse" id="collapseExample">
+                <div class="card card-body">
+                  <table class="table">
+                    <thead>
+                    <tr>
+                      <th scope="col">Mes</th>
+                      <th scope="col">Monto</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                      @for (mensualidad of tableModal.mesesPago; track mensualidad.mes) {
+                        <tr>
+                          <td>{{ mensualidad.mes }}</td>
+                          <td>$ {{ mensualidad.monto }}</td>
+                        </tr>
+                      }
+
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-success" data-bs-dismiss="modal">Listo</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--  FIN MODAL-->
+</div>

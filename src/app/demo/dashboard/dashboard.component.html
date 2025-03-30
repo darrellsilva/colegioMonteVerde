@@ -1,0 +1,71 @@
+<div class="row">
+  @for (sale of sales; track sale) {
+    <div class="{{ sale.design }} col-xl-4">
+      <app-card [hidHeader]="true">
+        <h6 class="mb-4">{{ sale.title }}</h6>
+        <div class="row d-flex align-items-center">
+          <div class="col-9">
+            <h3 class="f-w-300 d-flex align-items-center m-b-0">
+              <i class="feather {{ sale.icon }} f-30 m-r-10"></i>
+              {{ sale.amount }}
+            </h3>
+          </div>
+          <div class="col-3 text-end">
+            <p class="m-b-0">{{ sale.percentage }}</p>
+          </div>
+        </div>
+        <div class="m-t-30">
+          <ngb-progressbar type="progress-bar {{ sale.progress_bg }}" height="7px"
+                           [value]="sale.progress"></ngb-progressbar>
+        </div>
+      </app-card>
+    </div>
+  }
+  @for (otrosCobros of listaOtrosCobros; track otrosCobros.id) {
+    @if (otrosCobros.activo) {
+      <div ngbAccordion #accordion="ngbAccordion">
+        <div ngbAccordionItem="first">
+          <h2 ngbAccordionHeader>
+            <button ngbAccordionButton>Pagos de {{ otrosCobros.titulo }}</button>
+          </h2>
+          <div ngbAccordionCollapse>
+            <div ngbAccordionBody>
+              <ng-template>
+                <table class="table">
+                  <thead>
+                  <tr>
+                    <th scope="col">Nombre Alumno</th>
+                    <th scope="col">Apellido Alumno</th>
+                    <th scope="col">Pago</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                    @for (alumnos of listaAlumnos ; track alumnos.id) {
+                      <tr>
+                        <th>{{ alumnos.nombre }}</th>
+                        <td>{{ alumnos.apellido }}</td>
+                        @for (pagos of otrosCobros.infoPagoAlumno ; track pagos.idAlumno) {
+                          @if (pagos.idAlumno === alumnos.id){
+                            <td><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-lg text-success" viewBox="0 0 16 16">
+                              <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425z"/>
+                            </svg></td>
+                          } @else {
+                            <td><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x text-danger" viewBox="0 0 16 16">
+                              <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"/>
+                            </svg></td>
+                          }
+
+                        }
+                      </tr>
+                    }
+                  </tbody>
+                </table>
+              </ng-template>
+            </div>
+          </div>
+        </div>
+      </div>
+    }
+  }
+
+</div>

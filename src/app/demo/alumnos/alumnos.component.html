@@ -1,0 +1,55 @@
+<button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">
+  Agregar alumno
+</button>
+
+<table class="table">
+  <thead>
+  <tr>
+    <th scope="col">Nombre</th>
+    <th scope="col">Apellido</th>
+    <th scope="col">Correo apoderado</th>
+  </tr>
+  </thead>
+  <tbody>
+    @for (alumnos of listaAlumnos ; track alumnos.id){
+      <tr>
+        <td>{{ alumnos.nombre }}</td>
+        <td>{{ alumnos.apellido }}</td>
+        <td>{{ alumnos.emailPadre }}</td>
+      </tr>
+    }
+  </tbody>
+</table>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Informacion Alumno</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form [formGroup]="newAlumno">
+      <div class="modal-body">
+          <div class="mb-3">
+            <label for="Nombre" class="form-label">Nombre</label>
+            <input type="text" class="form-control" id="Nombre" formControlName="nombre" placeholder="Nombre del alumno">
+          </div>
+          <div class="mb-3">
+            <label for="Apellido" class="form-label">Apellido</label>
+            <input type="text" class="form-control" id="Apellido" formControlName="apellido" placeholder="Apellido del alumno">
+          </div>
+          <div class="mb-3">
+            <label for="CorreoApoderado" class="form-label">Correo Apoderado</label>
+            <input type="text" class="form-control" id="CorreoApoderado" formControlName="correoApoderado" placeholder="Correo Apoderado">
+          </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-primary" [disabled]="! newAlumno.valid" (click)="guardarAlumno()">Guardar Alumno</button>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
