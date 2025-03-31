@@ -11,35 +11,30 @@
         <div class="mb-4">
           <i class="feather icon-user-plus auth-icon"></i>
         </div>
-        <h3 class="mb-4">Sign up</h3>
-        <div class="input-group mb-3">
-          <input type="text" class="form-control" placeholder="Username" />
-        </div>
-        <div class="input-group mb-3">
-          <input type="email" class="form-control" placeholder="Email" />
-        </div>
-        <div class="input-group mb-4">
-          <input type="password" class="form-control" placeholder="Password" />
-        </div>
-        <div class="form-group text-start mb-4">
-          <div class="checkbox checkbox-fill d-inline">
-            <input type="checkbox" name="checkbox-fill-1" id="checkbox-fill-1" checked="" />
-            <label for="checkbox-fill-1" class="cr">Save Details</label>
+        <form [formGroup]="newRegister">
+          <h3 class="mb-4">Registrarse</h3>
+          <h5 class="mb-4"> La cuenta debe ser institucional </h5>
+          <div class="input-group mb-3">
+            <input type="email" class="form-control" formControlName="email" placeholder="Correo electronico" />
           </div>
-        </div>
-        <div class="form-group text-start mb-3">
-          <div class="checkbox checkbox-fill d-inline">
-            <input type="checkbox" name="checkbox-fill-2" id="checkbox-fill-2" />
-            <label for="checkbox-fill-2" class="cr">
-              Send me the
-              <a href="javascript:">Newsletter</a>
-              weekly.
-            </label>
+          <div class="input-group mb-3">
+            <input type="password" class="form-control" formControlName="password" placeholder="Password" />
           </div>
-        </div>
-        <button class="btn btn-primary shadow-2 mb-4">Sign up</button>
+          <div class="input-group mb-4">
+            <input type="password" class="form-control" formControlName="confirmPassword"
+                   placeholder="Reingrese Password" />
+          </div>
+          @if (newRegister.value.password !== newRegister.value.confirmPassword) {
+            <div class="alert alert-danger" role="alert">
+              Las contraseñas no coinciden!
+            </div>
+            <button class="btn btn-primary shadow-2 mb-4" disabled>Registrarse</button>
+          } @else {
+            <button class="btn btn-primary shadow-2 mb-4" [disabled]="!newRegister.valid" (click)="registrarCuenta()">Registrarse</button>
+          }
+        </form>
         <p class="mb-0 text-muted">
-          Already have an account?
+          Ya tienes cuenta?
           <a [routerLink]="['/auth/signin']">Log in</a>
         </p>
       </div>

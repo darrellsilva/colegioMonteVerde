@@ -7,7 +7,7 @@ import { SpinnerComponent } from './theme/shared/components/spinner/spinner.comp
 import { FirebaseService } from './theme/shared/service/firebase.service';
 import { Store } from '@ngrx/store';
 import { AppState } from './store/indexReducer/indexReducer';
-import { listarAlumnos, listarOtrosCobros } from './store/action/totalActions';
+import { infoApoderadoActions, listarAlumnos, listarOtrosCobros } from './store/action/totalActions';
 import { Subscription } from 'rxjs';
 import { LoginService } from './theme/shared/service/login.service';
 
@@ -19,27 +19,42 @@ import { LoginService } from './theme/shared/service/login.service';
 })
 export class AppComponent implements OnInit {
   title = 'datta-able';
-  inicioSesionActiva : boolean;
+  inicioSesionActiva: boolean;
   private router = inject(Router);
-  private fireBase = inject(FirebaseService)
+  private fireBase = inject(FirebaseService);
   estadoSesionSubscription: Subscription | undefined;
 
-  constructor(private store: Store<AppState>,private sesion: LoginService,) {
+  constructor(
+    private store: Store<AppState>,
+    private sesion: LoginService,
+  ) {
     this.estadoSesionSubscription = this.sesion.estadoSesion().subscribe((user) => {
       if (user) {
         console.log('Usuario autenticado:', user.email);
-      this.inicioSesionActiva = true;
-        this.store.dispatch(listarAlumnos());
-        this.store.dispatch(listarOtrosCobros())
+        this.store.dispatch(infoApoderadoActions());
+        this.store.select('infoApoderado').subscribe(apoderadoInfo =>{
+          if (apoderadoInfo.length > 0) {
+            const correoInstitucional = apoderadoInfo.filter(correo => correo.correoInstitucional === user.email);
+            if (correoInstitucional.length === 0) {
+              this.router.navigate(['infoApoderado']);
+            }else {
+              this.inicioSesionActiva = true;
+              this.store.dispatch(listarAlumnos());
+              this.store.dispatch(listarOtrosCobros());
+            }
+          }
+
+        })
+
       } else {
         console.log('Usuario no autenticado');
         this.inicioSesionActiva = false;
       }
     });
   }
+
   // life cycle hook
   ngOnInit() {
-
     this.router.events.subscribe((evt) => {
       if (!(evt instanceof NavigationEnd)) {
         return;

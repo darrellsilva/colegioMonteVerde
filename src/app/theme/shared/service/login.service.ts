@@ -20,4 +20,8 @@ export class LoginService {
   logout() {
     return this.authentication.signOut();
   }
+
+  registrarCuenta(sesion: sesion) {
+    return this.authentication.createUserWithEmailAndPassword(sesion.email, sesion.password);
+  }
 }

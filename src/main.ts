@@ -1,6 +1,6 @@
 import { enableProdMode, importProvidersFrom } from '@angular/core';
 
-import { environment } from './environments/environment';
+
 import { bootstrapApplication, BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app/app.component';
 import { AppRoutingModule } from './app/app-routing.module';
@@ -15,6 +15,8 @@ import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { getAuth, provideAuth } from '@angular/fire/auth';
 import { LoginService } from './app/theme/shared/service/login.service';
 import { FIREBASE_OPTIONS } from '@angular/fire/compat';
+import { environment } from './environments/environment';
+import { infoApoderadosEffects } from './app/store/effects/infoApoderadoEffects';
 
 if (environment.production) {
   enableProdMode();
@@ -25,7 +27,7 @@ bootstrapApplication(AppComponent,{
     importProvidersFrom(BrowserModule, AppRoutingModule),
     provideAnimations(),
     provideStore(appReducers),
-    provideEffects([AlumnosEffects, OtrosCobrosEffects]),
+    provideEffects([AlumnosEffects, OtrosCobrosEffects, infoApoderadosEffects]),
     provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
     provideFirestore(() => getFirestore()),
     provideAuth(() => getAuth()),

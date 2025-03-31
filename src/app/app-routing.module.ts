@@ -33,27 +33,8 @@ const routes: Routes = [
         path: 'dashboard',
         loadComponent: () => import('./demo/dashboard/dashboard.component').then((c) => c.DashboardComponent),
         ...canActivate(redirectUnauthorizedToSignin)
-      },
-      {
-        path: 'basic',
-        loadChildren: () => import('./demo/ui-elements/ui-basic/ui-basic.module').then((m) => m.UiBasicModule),
-        ...canActivate(redirectUnauthorizedToSignin)
-      },
-      {
-        path: 'forms',
-        loadChildren: () => import('./demo/pages/form-elements/form-elements.module').then((m) => m.FormElementsModule),
-        ...canActivate(redirectUnauthorizedToSignin)
-      },
-      {
-        path: 'tables',
-        loadChildren: () => import('./demo/pages/tables/tables.module').then((m) => m.TablesModule),
-        ...canActivate(redirectUnauthorizedToSignin)
-      },
-      {
-        path: 'sample-page',
-        loadComponent: () => import('./demo/extra/sample-page/sample-page.component'),
-        ...canActivate(redirectUnauthorizedToSignin)
       }
+
     ]
   },
   {
@@ -64,6 +45,10 @@ const routes: Routes = [
         path: 'auth',
         loadChildren: () => import('./demo/pages/authentication/authentication.module').then((m) => m.AuthenticationModule),
           ...canActivate(redirectLoggedInToDashboard)
+      },
+      {
+        path:'infoApoderado',
+        loadComponent: () => import('./demo/info-apoderado/info-apoderado.component').then((c) => c.InfoApoderadoComponent),
       }
     ]
   }

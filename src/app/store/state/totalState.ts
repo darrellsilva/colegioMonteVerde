@@ -34,3 +34,16 @@ export interface sesion{
   email: string;
   password: string;
 }
+
+export interface infoApoderado{
+  nombre: string;
+  apellido: string;
+  correoPersonal: string;
+  telefono: string;
+  correoInstitucional: string;
+  alumno: string;
+}
+
+export interface correoInstitucional{
+  correoInstitucional: string;
+}

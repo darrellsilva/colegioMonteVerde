@@ -2,9 +2,7 @@ import {Injectable} from "@angular/core";
 import {catchError, map, mergeMap, of} from "rxjs";
 import {Actions, createEffect, ofType} from '@ngrx/effects';
 import {
-  listarAlumnos,
-  listarAlumnosFail,
-  listarAlumnosSucces,
+  listarOtrosCobros,
   listarOtrosCobrosFail,
   listarOtrosCobrosSucces
 } from '../action/totalActions';
@@ -22,7 +20,7 @@ export class OtrosCobrosEffects {
     // LISTAR CATEGORIAS
     this.loadOtrosCobros$ = createEffect(() =>
       this.actions$.pipe(
-        ofType(listarAlumnos),
+        ofType(listarOtrosCobros),
         mergeMap(action => {
           return this.fireStoreService.listarOtrosCobros().pipe(
             map((otrosCobros) => {

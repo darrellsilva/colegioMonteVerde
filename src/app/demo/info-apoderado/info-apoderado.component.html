@@ -1,0 +1,50 @@
+<div class="auth-wrapper">
+  <div class="auth-content">
+    <div class="auth-bg">
+      <span class="r"></span>
+      <span class="r s"></span>
+      <span class="r s"></span>
+      <span class="r"></span>
+    </div>
+    <div class="card">
+      <div class="card-body text-center">
+        <div class="mb-4">
+          <i class="feather icon-user-plus auth-icon"></i>
+        </div>
+        <form [formGroup]="registerForm">
+          <h3 class="mb-4">Informacion Adicional</h3>
+          <h5 class="mb-4"> Muchas gracias por registrarte y por el compromiso por el curso</h5>
+          <div class="input-group mb-3">
+            <input type="text" class="form-control" formControlName="nombre" placeholder="Nombre" />
+          </div>
+          <div class="input-group mb-3">
+            <input type="text" class="form-control" formControlName="apellido" placeholder="Apellido" />
+          </div>
+          <div class="input-group mb-4">
+            <input type="text" class="form-control" formControlName="correoPersonal" placeholder="Correo Personal" />
+          </div>
+          <div class="input-group mb-4">
+            <input type="text" class="form-control" formControlName="telefono" placeholder="Telefono" />
+          </div>
+          <div class="input-group mb-4">
+            <input type="text" class="form-control" formControlName="correoInstitucional" placeholder="CorreoInstitucional" />
+          </div>
+          <div class="input-group mb-4">
+            <div class="form-floating">
+              <select class="form-select" id="floatingSelect" formControlName="alumno" aria-label="Floating label select example">
+                @for (alumnos of listaAlumnos; track alumnos.id) {
+                  @if (alumnos.emailPadre === ''){
+                  <option value="{{alumnos.id}}">{{ alumnos.nombre }} {{ alumnos.apellido }}</option>
+                  }
+                }
+              </select>
+              <label for="floatingSelect">Selecciona tu alumno responsable</label>
+            </div>
+          </div>
+            <button class="btn btn-primary shadow-2 mb-4" [disabled]="!registerForm.valid" (click)="registrarDataUsuario()">Registrarse</button>
+
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
