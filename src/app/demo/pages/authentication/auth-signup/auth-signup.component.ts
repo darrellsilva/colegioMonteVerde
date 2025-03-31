@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { LoginService } from '../../../../theme/shared/service/login.service';
+import { SpinnerServiceService } from '../../../../theme/shared/service/spinner-service.service';
 
 @Component({
   selector: 'app-auth-signup',
@@ -16,7 +17,8 @@ export default class AuthSignupComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private register: LoginService,
-    private router: Router
+    private router: Router,
+    private spinner: SpinnerServiceService
   ) {
     this.newRegister = this.fb.group({
       email: ['', Validators.required],
@@ -28,13 +30,14 @@ export default class AuthSignupComponent implements OnInit {
   ngOnInit(): void {}
 
   registrarCuenta() {
+    this.spinner.funcionalidadSpinner(true);
     const email = this.newRegister.value.email;
     const domain = email.substring(email.indexOf('@') + 1);
     if (domain !== 'colegiomonteverde.cl') {
       alert('El dominio de correo no es válido');
     } else {
       this.register.registrarCuenta(this.newRegister.value);
-      this.router.navigate(['dashboard']);
+      this.router.navigate(['/dashboard']);
 
     }
   }

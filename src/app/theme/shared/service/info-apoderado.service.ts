@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { from, map, Observable } from 'rxjs';
 import {  infoApoderado } from '../../../store/state/totalState';
-import { collection, Firestore, getDocs } from '@angular/fire/firestore';
+import { addDoc, collection, Firestore, getDocs } from '@angular/fire/firestore';
 
 @Injectable({
   providedIn: 'root'
@@ -18,13 +18,21 @@ export class InfoApoderadoService {
           return {
             nombre: data['nombre'],
             apellido: data['apellido'],
-            correoPersonal: data['emailPersonal'],
+            correoPersonal: data['correoPersonal'],
             correoInstitucional: data['correoInstitucional'],
             telefono: data['telefono'],
-            alumno: data['alumno']
+            alumno: data['alumno'],
+            rolUsuario: data['rolUsuario']
           } as infoApoderado;
         })
       )
     );
   }
+
+  guardarInfoApoderado(datosApoderados: infoApoderado): Observable<any> {
+    const ref = collection(this.firebase, 'informacionApoderado');
+    return from(addDoc(ref, datosApoderados));
+  }
+
+
 }

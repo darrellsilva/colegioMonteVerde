@@ -7,6 +7,8 @@ import { environment } from 'src/environments/environment';
 import { NavigationItem, NavigationItems } from '../navigation';
 import { SharedModule } from 'src/app/theme/shared/shared.module';
 import { NavGroupComponent } from './nav-group/nav-group.component';
+import { Store } from '@ngrx/store';
+import { AppState } from '../../../../../store/indexReducer/indexReducer';
 
 @Component({
   selector: 'app-nav-content',
@@ -29,8 +31,26 @@ export class NavContentComponent {
   NavCollapsedMob = output();
 
   // constructor
-  constructor() {
-    this.navigations = NavigationItems;
+  constructor(private store: Store<AppState>) {
+    const finalMenu = [];
+    this.store.select('correoInsitucional').subscribe((state) => {
+      this.store.select('infoApoderado').subscribe((stateApoderado) => {
+        if (stateApoderado.length > 0) {
+        const dataApoderado = stateApoderado.filter(data => data.correoInstitucional === state.correoInstitucional);
+        const navItems = [];
+        navItems.push(NavigationItems);
+        for (let i = 0; i < navItems[0].length; i++) {
+          if (navItems[0][i].id !== 'administracion' && dataApoderado[0].rolUsuario !== 'admin') {
+            finalMenu.push(navItems[0][i]);
+          }else if (dataApoderado[0].rolUsuario === 'admin') {
+            finalMenu.push(navItems[0][i]);
+          }
+        }
+        this.navigations = finalMenu;
+        console.log('menu guardado', this.navigations);
+      }
+      })
+    })
   }
 
   fireOutClick() {
