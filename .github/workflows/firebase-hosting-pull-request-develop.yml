@@ -16,7 +16,6 @@ jobs:
 
       - name: Instalar Firebase CLI
         run: |
-          yarn ci
           yarn add -g firebase-tools
 
       - name: Install Dependencies
