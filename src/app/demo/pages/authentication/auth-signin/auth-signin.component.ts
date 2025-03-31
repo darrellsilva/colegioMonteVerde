@@ -5,11 +5,13 @@ import { sesion } from '../../../../store/state/totalState';
 import { LoginService } from '../../../../theme/shared/service/login.service';
 import { Subscription } from 'rxjs';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
+import { SpinnerServiceService } from '../../../../theme/shared/service/spinner-service.service';
+import { SpinnerMonteVerdeComponent } from '../../../spinner-monte-verde/spinner-monte-verde.component';
 
 @Component({
   selector: 'app-auth-signin',
   standalone: true,
-  imports: [RouterModule, AngularFireAuthModule, ReactiveFormsModule],
+  imports: [RouterModule, AngularFireAuthModule, ReactiveFormsModule, SpinnerMonteVerdeComponent],
   templateUrl: './auth-signin.component.html',
   styleUrls: ['./auth-signin.component.scss']
 })
@@ -20,7 +22,8 @@ export default class AuthSigninComponent implements OnInit {
   constructor(
     private form: FormBuilder,
     private router: Router,
-    private sesion: LoginService
+    private sesion: LoginService,
+    private spinner: SpinnerServiceService
   ) {
     this.initSesion = this.form.group({
       email: ['', Validators.required],
@@ -41,12 +44,12 @@ export default class AuthSigninComponent implements OnInit {
   }
 
   iniciarSesion() {
+    this.spinner.funcionalidadSpinner(true);
     const sesion: sesion = {
       email: this.initSesion.value.email,
       password: this.initSesion.value.password
     };
 
-    console.log('credenciales:', sesion);
     this.sesion
       .iniciarSesion(sesion)
       .then(() => {

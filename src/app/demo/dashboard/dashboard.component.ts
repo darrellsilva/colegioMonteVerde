@@ -20,6 +20,7 @@ import { Store } from '@ngrx/store';
 import { listarAlumnos } from '../../store/action/totalActions';
 import { combineLatest } from 'rxjs';
 import { alumnosPago } from '../../store/state/totalState';
+import { SpinnerServiceService } from '../../theme/shared/service/spinner-service.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -32,16 +33,17 @@ export class DashboardComponent implements OnInit {
   listaAlumnos: any = [];
   listaOtrosCobros: any = [];
 
-  constructor(private store: Store<AppState>) {
+  constructor(private store: Store<AppState>, private spinner: SpinnerServiceService) {
   }
 
   // life cycle event
   ngOnInit() {
+    this.spinner.funcionalidadSpinner(false)
     combineLatest([
       this.store.select('otrosCobros'),
       this.store.select('listarAlumnos')
     ]).subscribe(([otrosCobros, alumnosRegistrados]) => {
-      if (otrosCobros['otrosCobros'] != null || otrosCobros['otrosCobros'].length > 0 || otrosCobros['otrosCobros'] != undefined) {
+      if (otrosCobros['otrosCobros'] != null || otrosCobros['otrosCobros'] != undefined) {
         this.listaOtrosCobros = otrosCobros['otrosCobros'];
         console.log('otros cobros', this.listaOtrosCobros);
       }

@@ -18,4 +18,7 @@ export const infoApoderadosSuccess = createAction('[INFO APODERADO] Informacion 
 export const infoApoderadosFail = createAction('[INFO APODERADO] Informacion Apoderado Fail', props<{error: string}>());
 
 // CORREO INSTITUCIONAL
-export const correoInstitucionalActions = createAction('[CORREO INSTITUCIONAL] Correo Institucional', props<{correoInstitucional: correoInstitucional}>());
+export const correoInstitucionalActions = createAction('[CORREO INSTITUCIONAL] Correo Institucional', props<{correo: string}>());
+
+// ACTIVACION SPINNER
+export const activarSpinner = createAction('[SPINNER] Activar Spinner', props<{spinner: boolean}>());

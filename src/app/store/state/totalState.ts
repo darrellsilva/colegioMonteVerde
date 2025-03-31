@@ -42,8 +42,13 @@ export interface infoApoderado{
   telefono: string;
   correoInstitucional: string;
   alumno: string;
+  rolUsuario: string;
 }
 
 export interface correoInstitucional{
   correoInstitucional: string;
+}
+
+export interface spinner{
+  spinner: boolean;
 }
