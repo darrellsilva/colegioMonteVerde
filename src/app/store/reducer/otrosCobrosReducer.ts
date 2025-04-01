@@ -6,7 +6,6 @@ const initialProductState: otrosCobro[] = [];
 
 const OtrosCobrosReducer = createReducer(initialProductState,
   on(listarOtrosCobrosSucces,  (state, {otrosCobros}) => {
-    console.log('Otros Cobros reducer', otrosCobros)
     return {...state, otrosCobros: otrosCobros};
   })
 );

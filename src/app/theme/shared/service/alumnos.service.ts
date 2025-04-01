@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { from, map, Observable } from 'rxjs';
-import { addDoc, collection, Firestore, getDocs } from '@angular/fire/firestore';
+import { addDoc, collection, doc, Firestore, getDocs, updateDoc } from '@angular/fire/firestore';
 import { alumnos, otrosCobro } from '../../../store/state/totalState';
 import { DocumentData, DocumentReference } from '@angular/fire/compat/firestore';
 
@@ -35,6 +35,11 @@ export class AlumnosService {
     return from(addDoc(ref, alumnos));
   }
 
+  editarAlumno(id: string, correo: any): Observable<void> {
+    const alumnoDocRef = doc(this.firebase, `alumnos/${id}`);
+    return from(updateDoc(alumnoDocRef, correo));
+  }
+
 
 
   // FIN LISTAR ALUMNOS
@@ -50,11 +55,20 @@ export class AlumnosService {
           activo: data['activo'],
           infoPagoAlumno: data['infoPagoAlumno'],
           titulo: data['titulo'],
+          montoCobrar: data['montoCobrar'],
+          montoTotalRecaudado: data['montoTotalRecaudado'],
+          cantidadAlumnosPago: data['cantidadAlumnosPago']
         } as otrosCobro;
       }))
     );
 
   }
+
+  editarCobros(dataModificar: any): Observable<void> {
+    const alumnoDocRef = doc(this.firebase, `otrosCobros/${dataModificar.id}`);
+    return from(updateDoc(alumnoDocRef, dataModificar));
+  }
+
   // FIN OTROS COBROS
 
 

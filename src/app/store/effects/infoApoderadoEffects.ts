@@ -24,7 +24,6 @@ export class infoApoderadosEffects {
         mergeMap(action => {
           return this.fireStoreService.listarInfoApoderado().pipe(
             map((infoApoderado) => {
-              console.log('Informacion Apoderado:', infoApoderado);
               return infoApoderadosSuccess({infoApoderado: infoApoderado});
             }),
             catchError((error) => {

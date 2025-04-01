@@ -6,7 +6,6 @@ const initialProductState: infoApoderado[] = [];
 
 const InfoApoderadoReducer = createReducer(initialProductState,
   on(infoApoderadosSuccess,  (state, {infoApoderado}) => {
-    console.log('Apoderado reducer', infoApoderado)
     return [...state, ...infoApoderado];
   })
 );

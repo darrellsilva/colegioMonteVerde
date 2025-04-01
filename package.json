@@ -1,7 +1,7 @@
 {
-  "name": "datta-able-free-angular-admin-template",
-  "version": "6.0.0",
-  "author": "CodedThemes",
+  "name": "colegio-monteverde-primero-basico",
+  "version": "1.0.0",
+  "author": "Alexander Silva",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",

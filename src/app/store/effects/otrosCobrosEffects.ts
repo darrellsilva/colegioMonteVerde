@@ -4,17 +4,21 @@ import {Actions, createEffect, ofType} from '@ngrx/effects';
 import {
   listarOtrosCobros,
   listarOtrosCobrosFail,
-  listarOtrosCobrosSucces
+  listarOtrosCobrosSucces, modificarOtrosCobros
 } from '../action/totalActions';
 import { AlumnosService } from '../../theme/shared/service/alumnos.service';
+import { Store } from '@ngrx/store';
+import { AppState } from '../indexReducer/indexReducer';
 
 @Injectable()
 export class OtrosCobrosEffects {
   loadOtrosCobros$;
+  modificarOtrosCobros$;
 
   constructor(
     private actions$: Actions,
-    private fireStoreService: AlumnosService
+    private fireStoreService: AlumnosService,
+    private store: Store<AppState>,
   ) {
 
     // LISTAR CATEGORIAS
@@ -24,7 +28,15 @@ export class OtrosCobrosEffects {
         mergeMap(action => {
           return this.fireStoreService.listarOtrosCobros().pipe(
             map((otrosCobros) => {
-              console.log('Otros Cobros:', otrosCobros);
+              otrosCobros.forEach((otrosCobro) => {
+                const cantidadPago = otrosCobro.infoPagoAlumno.length;
+                const camposModificar = {
+                  id: otrosCobro.id,
+                  cantidadAlumnosPago: cantidadPago,
+                  montoTotalRecaudado: otrosCobro.montoCobrar * cantidadPago
+                };
+                this.store.dispatch(modificarOtrosCobros({otrosCobros: camposModificar}));
+              })
               return listarOtrosCobrosSucces({otrosCobros: otrosCobros});
             }),
             catchError((error) => {
@@ -34,6 +46,23 @@ export class OtrosCobrosEffects {
           );
         })
       )
+    );
+
+// GUARDADO DE CAMPOS MODIFICADOS
+    this.modificarOtrosCobros$ = createEffect(() =>
+        this.actions$.pipe(
+          ofType(modificarOtrosCobros),
+          mergeMap(action =>
+            this.fireStoreService.editarCobros(action.otrosCobros).pipe(
+              map(() => void 0),
+              catchError((error) => {
+                console.error('Error occurred:', error);
+                return of(listarOtrosCobrosFail({error}));
+              })
+            )
+          )
+        ),
+      {dispatch: false}
     );
 
   }

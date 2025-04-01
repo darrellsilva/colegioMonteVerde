@@ -6,7 +6,6 @@ const initialProductState: alumnos[] = [];
 
 const AlumnosReducer = createReducer(initialProductState,
   on(listarAlumnosSucces,  (state, {alumnos}) => {
-    console.log('Alumnos reducer', alumnos)
     return [...state, ...alumnos];
   }),
   on(addAlumno,  (state, {alumno}) => {
