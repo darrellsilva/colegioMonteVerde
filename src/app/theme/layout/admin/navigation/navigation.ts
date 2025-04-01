@@ -63,6 +63,14 @@ export const NavigationItems: NavigationItem[] = [
         icon: 'feather icon-file-text'
       },
       {
+        id: 'pagos',
+        title: 'Pagos',
+        type: 'item',
+        url: '/pagos',
+        classes: 'nav-item',
+        icon: 'feather icon-file-text'
+      },
+      {
         id: 'profesores',
         title: 'Profesores',
         type: 'item',
@@ -75,14 +83,6 @@ export const NavigationItems: NavigationItem[] = [
         title: 'Cursos',
         type: 'item',
         url: '/cursos',
-        classes: 'nav-item',
-        icon: 'feather icon-server'
-      },
-      {
-        id: 'pagos',
-        title: 'Pagos',
-        type: 'item',
-        url: '/pagos',
         classes: 'nav-item',
         icon: 'feather icon-server'
       },
