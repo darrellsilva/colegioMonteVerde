@@ -36,8 +36,15 @@ export default class AuthSignupComponent implements OnInit {
     if (domain !== 'colegiomonteverde.cl') {
       alert('El dominio de correo no es válido');
     } else {
-      this.register.registrarCuenta(this.newRegister.value);
-      this.router.navigate(['/dashboard']);
+      this.register.registrarCuenta(this.newRegister.value).then(response => {
+        this.router.navigate(['/dashboard']);
+      }, error => {
+        if(error.code === 'auth/email-already-in-use') {
+          this.spinner.funcionalidadSpinner(false);
+          alert('El correo ya está en uso');
+        }
+
+      });
 
     }
   }
