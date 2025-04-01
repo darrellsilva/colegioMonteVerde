@@ -1,0 +1,32 @@
+name: CI-Develop
+
+on:
+  pull_request:
+    branches: [ main ]
+    types: [closed] # Solo cuando el PR se cierra
+
+jobs:
+  build:
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Instalar Firebase CLI
+        run: |
+          yarn add firebase-tools@latest
+
+      - name: Install Dependencies
+        run: yarn install
+
+      - name: Build Angular Project (PROD)
+        run: yarn run build -- --configuration=prod
+
+      - name: Deploy to Firebase
+        uses: w9jds/firebase-action@master
+        with:
+          args: deploy --only hosting --project colegio-monte-verde-prod
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_PROD }}

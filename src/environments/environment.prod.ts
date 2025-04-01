@@ -4,12 +4,11 @@ export const environment = {
   appVersion: packageInfo.version,
   production: true,
   firebaseConfig: {
-    apiKey: "AIzaSyBR6_KQXhBoS6YC94GjJzsfV_rvxs_K-9c",
-    authDomain: "colegio-monte-verde-dev.firebaseapp.com",
-    projectId: "colegio-monte-verde-dev",
-    storageBucket: "colegio-monte-verde-dev.firebasestorage.app",
-    messagingSenderId: "264975189490",
-    appId: "1:264975189490:web:5e405cec6bbfe740ca576b",
-    measurementId: "G-G6P1XNRNCK"
+    apiKey: "AIzaSyB2RhBecYNr2kKxdKy590CXUYKZhmWRmkc",
+    authDomain: "colegio-monte-verde-prod.firebaseapp.com",
+    projectId: "colegio-monte-verde-prod",
+    storageBucket: "colegio-monte-verde-prod.firebasestorage.app",
+    messagingSenderId: "566871119368",
+    appId: "1:566871119368:web:8ffb0a0b6ed1e2253b23bd"
   }
 };
