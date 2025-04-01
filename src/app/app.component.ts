@@ -36,7 +36,6 @@ export class AppComponent implements OnInit {
   ) {
     this.estadoSesionSubscription = this.sesion.estadoSesion().subscribe((user) => {
       if (user) {
-        console.log('Usuario autenticado:', user.email);
         this.store.dispatch(correoInstitucionalActions({ correo: user.email }));
         this.store.dispatch(infoApoderadoActions());
         if (user.email !== 'admin@admin.com') {
@@ -58,7 +57,6 @@ export class AppComponent implements OnInit {
           this.store.dispatch(listarOtrosCobros());
         }
       } else {
-        console.log('desactiva spinner');
         this.inicioSesionActiva = false;
       }
     });

@@ -54,7 +54,6 @@ export class InfoApoderadoComponent implements OnInit {
     this.store.select('listarAlumnos').subscribe((listAlumnos) => {
       if (listAlumnos.length > 0) {
         this.listaAlumnos = listAlumnos;
-        console.log(this.listaAlumnos);
       }
     });
   }
@@ -78,7 +77,6 @@ export class InfoApoderadoComponent implements OnInit {
     this.alumos.editarAlumno(this.registerForm.get('alumno')?.value, emailPadre);
 
     this.apoderado.guardarInfoApoderado(datosApoderados).subscribe(() => {
-      console.log('Datos guardados correctamente');
       this.router.navigate(['dashboard']);
     });
   }

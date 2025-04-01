@@ -32,7 +32,6 @@ export class AlumnosComponent implements OnInit {
 
   ngOnInit(): void {
     this.store.select('listarAlumnos').subscribe((alumnos) => {
-      console.log(alumnos);
       this.listaAlumnos = alumnos;
     });
   }
@@ -50,7 +49,6 @@ export class AlumnosComponent implements OnInit {
     this.store.dispatch(addAlumno({ alumno: newAlumno }));
 
     this.saveAlumno.guardarAlumno(newAlumno).subscribe(response => {
-      console.log('guardado exitosamente');
       this.spinner.funcionalidadSpinner(false)
 
     })

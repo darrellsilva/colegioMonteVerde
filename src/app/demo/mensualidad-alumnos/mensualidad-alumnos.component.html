@@ -38,57 +38,56 @@
       </div>
     </div>
   }
+</div>
 
 
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Detalle mensualidades</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <ul class="list-group">
+          <li class="list-group-item disabled"
+              aria-disabled="true">{{ tableModal.nombre }} {{ tableModal.apellido }}
+          </li>
+          <li class="list-group-item"><p class="d-inline-flex gap-1">
+            <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseExample" role="button"
+               aria-expanded="false" aria-controls="collapseExample">
+              Mensualidades pagas
+            </a>
+          </p>
+            <div class="collapse" id="collapseExample">
+              <div class="card card-body">
+                <table class="table">
+                  <thead>
+                  <tr>
+                    <th scope="col">Mes</th>
+                    <th scope="col">Monto</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                    @for (mensualidad of tableModal.mesesPago; track mensualidad.mes) {
+                      <tr>
+                        <td>{{ mensualidad.mes }}</td>
+                        <td>$ {{ mensualidad.monto }}</td>
+                      </tr>
+                    }
 
-  <!-- Modal -->
-  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h1 class="modal-title fs-5" id="exampleModalLabel">Detalle mensualidades</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <ul class="list-group">
-            <li class="list-group-item disabled"
-                aria-disabled="true">{{ tableModal.nombre }} {{ tableModal.apellido }}
-            </li>
-            <li class="list-group-item"><p class="d-inline-flex gap-1">
-              <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseExample" role="button"
-                 aria-expanded="false" aria-controls="collapseExample">
-                Mensualidades pagas
-              </a>
-            </p>
-              <div class="collapse" id="collapseExample">
-                <div class="card card-body">
-                  <table class="table">
-                    <thead>
-                    <tr>
-                      <th scope="col">Mes</th>
-                      <th scope="col">Monto</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                      @for (mensualidad of tableModal.mesesPago; track mensualidad.mes) {
-                        <tr>
-                          <td>{{ mensualidad.mes }}</td>
-                          <td>$ {{ mensualidad.monto }}</td>
-                        </tr>
-                      }
-
-                    </tbody>
-                  </table>
-                </div>
+                  </tbody>
+                </table>
               </div>
-            </li>
-          </ul>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-success" data-bs-dismiss="modal">Listo</button>
-        </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-success" data-bs-dismiss="modal">Listo</button>
       </div>
     </div>
   </div>
-  <!--  FIN MODAL-->
 </div>
+<!--  FIN MODAL-->

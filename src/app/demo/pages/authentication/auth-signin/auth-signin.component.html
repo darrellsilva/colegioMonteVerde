@@ -26,6 +26,7 @@
             </div>
           }
         <button class="btn btn-primary mb-4" (click)="iniciarSesion()">Iniciar Sesion</button>
+          <!-- Button trigger modal -->
         </form>
 <!--        <p class="mb-2 text-muted">-->
 <!--          Forgot password?-->
@@ -35,6 +36,36 @@
          No tienes cuenta?
           <a [routerLink]="['/auth/signup']">Registrate!</a>
         </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" style="text-align: center" id="exampleModalLabel">Bienvenido!</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div style="text-align: center; margin-bottom: 25px">
+          <img src="assets/images/logomonteverde.png" alt="logo colegio" style="border-radius: 20px">
+        </div>
+        <h4 style="text-align: center; margin-bottom: 25px">
+          Si es primera vez que ingresas debes <span class="fw-bolder">registrarte</span>, presiona el boton de abajo para el registro
+        </h4>
+        <div style="text-align: center; margin-bottom: 25px">
+          <button type="button" class="btn btn-primary" [routerLink]="['/auth/signup']" data-bs-dismiss="modal"><span class="fw-bolder">Registrarse</span></button>
+        </div>
+        <h4 style="text-align: center; margin-bottom: 25px">
+         Si ya te encuentras registrado, inicia sesion!
+        </h4>
+        <div style="text-align: center">
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal"><span class="fw-bolder">Iniciar Sesion</span></button>
+        </div>
       </div>
     </div>
   </div>

@@ -55,11 +55,20 @@ export class AlumnosService {
           activo: data['activo'],
           infoPagoAlumno: data['infoPagoAlumno'],
           titulo: data['titulo'],
+          montoCobrar: data['montoCobrar'],
+          montoTotalRecaudado: data['montoTotalRecaudado'],
+          cantidadAlumnosPago: data['cantidadAlumnosPago']
         } as otrosCobro;
       }))
     );
 
   }
+
+  editarCobros(dataModificar: any): Observable<void> {
+    const alumnoDocRef = doc(this.firebase, `otrosCobros/${dataModificar.id}`);
+    return from(updateDoc(alumnoDocRef, dataModificar));
+  }
+
   // FIN OTROS COBROS
 
 

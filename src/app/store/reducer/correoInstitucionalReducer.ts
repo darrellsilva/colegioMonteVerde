@@ -8,7 +8,6 @@ const initialProductState: correoInstitucional = {
 
 const CorreoInstitucionalReducer = createReducer(initialProductState,
   on(correoInstitucionalActions,  (state, {correo}) => {
-    console.log('Correo Institucional', correo)
     return { ...state, correoInstitucional: correo };
   })
 );

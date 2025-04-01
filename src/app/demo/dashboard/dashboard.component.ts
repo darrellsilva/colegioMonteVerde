@@ -5,7 +5,6 @@ import { CommonModule } from '@angular/common';
 // project import
 import { SharedModule } from 'src/app/theme/shared/shared.module';
 
-
 import '../../../assets/charts/amchart/amcharts.js';
 import '../../../assets/charts/amchart/gauge.js';
 import '../../../assets/charts/amchart/serial.js';
@@ -29,41 +28,72 @@ import { SpinnerServiceService } from '../../theme/shared/service/spinner-servic
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
-
   listaAlumnos: any = [];
   listaOtrosCobros: any = [];
+  porcentajePagado: number = 0;
+  montoPagado: number = 0;
 
-  constructor(private store: Store<AppState>, private spinner: SpinnerServiceService) {
-  }
+  constructor(
+    private store: Store<AppState>,
+    private spinner: SpinnerServiceService
+  ) {}
 
   // life cycle event
   ngOnInit() {
-    this.spinner.funcionalidadSpinner(false)
-    combineLatest([
-      this.store.select('otrosCobros'),
-      this.store.select('listarAlumnos')
-    ]).subscribe(([otrosCobros, alumnosRegistrados]) => {
+    this.spinner.funcionalidadSpinner(false);
+    combineLatest([this.store.select('otrosCobros'), this.store.select('listarAlumnos')]).subscribe(([otrosCobros, alumnosRegistrados]) => {
       if (otrosCobros['otrosCobros'] != null || otrosCobros['otrosCobros'] != undefined) {
         this.listaOtrosCobros = otrosCobros['otrosCobros'];
-        console.log('otros cobros', this.listaOtrosCobros);
       }
       if (alumnosRegistrados.length > 0) {
-        console.log('alumnos registrados', alumnosRegistrados);
+        this.cantidadDealumnosPago();
         this.listaAlumnos = alumnosRegistrados;
       }
-
     });
-
   }
 
+  cantidadDealumnosPago() {
+    const cantidadAlumnos = this.listaAlumnos.length;
+    const cantidadDePagosARealizar = cantidadAlumnos * 10;
+    let mesesPagados = 0;
+    this.listaAlumnos.forEach((alumno) => {
+      if (alumno.mesesPago.length > 0) {
+        mesesPagados = mesesPagados + alumno.mesesPago.length;
+      }
+    });
+    this.montoPagado = mesesPagados * 5000;
+    this.porcentajePagado = Math.round((mesesPagados * 100) / cantidadDePagosARealizar);
+
+    this.sales = [
+      {
+        title: 'Monto Total Mensualidad',
+        icon: 'icon-arrow-up text-c-green',
+        amount: '$'.concat(String(this.montoPagado)),
+        percentage: String(this.porcentajePagado).concat('%'),
+        progress: this.porcentajePagado,
+        design: 'col-md-6',
+        progress_bg: 'progress-c-theme'
+      },
+      {
+        title: 'Pago Mensualidad Completa',
+        icon: 'icon-arrow-up text-c-green',
+        amount: '$249.95',
+        percentage: '10%',
+        progress: 10,
+        design: 'col-md-6',
+        progress_bg: 'progress-c-theme'
+      }
+    ];
+
+  }
   // public method
   sales = [
     {
       title: 'Monto Total Mensualidad',
       icon: 'icon-arrow-up text-c-green',
-      amount: '$250.000',
-      percentage: '20%',
-      progress: 20,
+      amount: '$'.concat(String(this.montoPagado)),
+      percentage: String(this.porcentajePagado).concat('%'),
+      progress: this.porcentajePagado,
       design: 'col-md-6',
       progress_bg: 'progress-c-theme'
     },
@@ -77,4 +107,11 @@ export class DashboardComponent implements OnInit {
       progress_bg: 'progress-c-theme'
     }
   ];
+
+  hayPago(alumnoId: number, pagos: any[]): boolean {
+    if (!pagos) {
+      return false;
+    }
+    return pagos.some((pago) => pago.idAlumno === alumnoId);
+  }
 }

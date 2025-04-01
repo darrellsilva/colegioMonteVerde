@@ -16,6 +16,7 @@ export class InfoApoderadoService {
         snapshot.docs.map((doc) => {
           const data = doc.data();
           return {
+            id: doc.id,
             nombre: data['nombre'],
             apellido: data['apellido'],
             correoPersonal: data['correoPersonal'],

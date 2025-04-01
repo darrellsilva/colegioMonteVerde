@@ -11,6 +11,7 @@ export const addAlumno = createAction('[ALUMNOS] Agregar Alumno', props<{alumno:
 export const listarOtrosCobros = createAction('[OTROS COBROS] Listar Otros Cobros');
 export const listarOtrosCobrosSucces = createAction('[OTROS COBROS] Listar Otros Cobros Succes', props<{otrosCobros: otrosCobro[]}>());
 export const listarOtrosCobrosFail = createAction('[OTROS COBROS] Listar Otros Cobros Fail', props<{error: string}>());
+export const modificarOtrosCobros = createAction('[OTROS COBROS] Modificar Otros Cobros', props<{otrosCobros: any}>());
 
 // INFORMACION APODERADOS
 export const infoApoderadoActions = createAction('[INFO APODERADO] Informacion Apoderado');

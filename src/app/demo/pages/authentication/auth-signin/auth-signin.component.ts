@@ -7,6 +7,7 @@ import { Subscription } from 'rxjs';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { SpinnerServiceService } from '../../../../theme/shared/service/spinner-service.service';
 import { SpinnerMonteVerdeComponent } from '../../../spinner-monte-verde/spinner-monte-verde.component';
+declare var bootstrap: any;
 
 @Component({
   selector: 'app-auth-signin',
@@ -33,6 +34,8 @@ export default class AuthSigninComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    const myModalWelcome = new bootstrap.Modal(document.getElementById('exampleModal'));
+    myModalWelcome.show();
     this.estadoSesionSubscription = this.sesion.estadoSesion().subscribe((user) => {
       if (user) {
         console.log('Usuario autenticado:', user);
@@ -54,7 +57,6 @@ export default class AuthSigninComponent implements OnInit {
     this.sesion
       .iniciarSesion(sesion)
       .then(() => {
-        console.log('Sesion iniciado com sucesso!');
         this.router.navigate(['/dashboard']);
       })
       .catch((error) => {
@@ -66,7 +68,6 @@ export default class AuthSigninComponent implements OnInit {
          this.errorContrasenaIncorrecta = false
         },4000);
 
-        console.log('Error al iniciar sesion:', error);
       });
   }
 }

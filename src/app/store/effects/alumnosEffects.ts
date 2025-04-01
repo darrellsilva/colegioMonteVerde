@@ -20,7 +20,6 @@ export class AlumnosEffects {
         mergeMap(action => {
           return this.fireStoreService.listarAlumnos().pipe(
             map((alumnos) => {
-              console.log('Alumnos:', alumnos);
               return listarAlumnosSucces({alumnos: alumnos});
             }),
             catchError((error) => {

@@ -18,7 +18,6 @@ export class SpinnerMonteVerdeComponent implements OnInit{
 
   ngOnInit(): void {
     this.store.select('spinner').subscribe(spinner =>{
-      console.log('Valor spinner', spinner.spinner);
       this.spinnerActivated = spinner.spinner;
     })
   }
