@@ -8,7 +8,6 @@ const initialProductState: spinner = {
 
 const SpinnerReducer = createReducer(initialProductState,
   on(activarSpinner,  (state, {spinner}) => {
-    console.log('Spinner Reducer', spinner)
     return { ...state, spinner: spinner };
   })
 );

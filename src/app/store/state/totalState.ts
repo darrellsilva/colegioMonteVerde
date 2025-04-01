@@ -15,6 +15,9 @@ export interface otrosCobro{
   id: string;
   activo: boolean;
   titulo: string;
+  montoCobrar: number;
+  montoTotalRecaudado: number;
+  cantidadAlumnosPago: number;
   infoPagoAlumno: [
     {
       fechaPago: string;

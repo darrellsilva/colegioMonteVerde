@@ -47,7 +47,6 @@ export class NavContentComponent {
           }
         }
         this.navigations = finalMenu;
-        console.log('menu guardado', this.navigations);
       }
       })
     })
