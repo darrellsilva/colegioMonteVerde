@@ -20,6 +20,11 @@
         <div class="input-group mb-4">
           <input type="password" class="form-control" formControlName="password" placeholder="Password" />
         </div>
+          @if (errorContrasenaIncorrecta) {
+            <div class="alert alert-danger" role="alert">
+              Usuario o contraseña incorrectos, intente nuevamente
+            </div>
+          }
         <button class="btn btn-primary mb-4" (click)="iniciarSesion()">Iniciar Sesion</button>
         </form>
 <!--        <p class="mb-2 text-muted">-->

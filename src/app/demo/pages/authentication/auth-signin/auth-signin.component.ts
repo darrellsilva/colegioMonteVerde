@@ -18,6 +18,7 @@ import { SpinnerMonteVerdeComponent } from '../../../spinner-monte-verde/spinner
 export default class AuthSigninComponent implements OnInit {
   initSesion: FormGroup;
   estadoSesionSubscription: Subscription | undefined;
+  errorContrasenaIncorrecta= false;
 
   constructor(
     private form: FormBuilder,
@@ -57,6 +58,14 @@ export default class AuthSigninComponent implements OnInit {
         this.router.navigate(['/dashboard']);
       })
       .catch((error) => {
+        this.spinner.funcionalidadSpinner(false);
+        if (error.code === 'auth/invalid-credential') {
+          this.errorContrasenaIncorrecta = true;
+        }
+        setTimeout(() => {
+         this.errorContrasenaIncorrecta = false
+        },4000);
+
         console.log('Error al iniciar sesion:', error);
       });
   }
