@@ -74,15 +74,15 @@ export class DashboardComponent implements OnInit {
         design: 'col-md-6',
         progress_bg: 'progress-c-theme'
       },
-      {
-        title: 'Pago Mensualidad Completa',
-        icon: 'icon-arrow-up text-c-green',
-        amount: '$249.95',
-        percentage: '10%',
-        progress: 10,
-        design: 'col-md-6',
-        progress_bg: 'progress-c-theme'
-      }
+      // {
+      //   title: 'Pago Mensualidad Completa',
+      //   icon: 'icon-arrow-up text-c-green',
+      //   amount: '$249.95',
+      //   percentage: '10%',
+      //   progress: 10,
+      //   design: 'col-md-6',
+      //   progress_bg: 'progress-c-theme'
+      // }
     ];
 
   }
@@ -97,15 +97,15 @@ export class DashboardComponent implements OnInit {
       design: 'col-md-6',
       progress_bg: 'progress-c-theme'
     },
-    {
-      title: 'Pago Mensualidad Completa',
-      icon: 'icon-arrow-up text-c-green',
-      amount: '$249.95',
-      percentage: '10%',
-      progress: 10,
-      design: 'col-md-6',
-      progress_bg: 'progress-c-theme'
-    }
+    // {
+    //   title: 'Pago Mensualidad Completa',
+    //   icon: 'icon-arrow-up text-c-green',
+    //   amount: '$249.95',
+    //   percentage: '10%',
+    //   progress: 10,
+    //   design: 'col-md-6',
+    //   progress_bg: 'progress-c-theme'
+    // }
   ];
 
   hayPago(alumnoId: number, pagos: any[]): boolean {

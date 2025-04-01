@@ -72,7 +72,7 @@
                   <tbody>
                     @for (mensualidad of tableModal.mesesPago; track mensualidad.mes) {
                       <tr>
-                        <td>{{ mensualidad.mes }}</td>
+                        <td>{{ convertTimestampToDate(mensualidad.mes) | date:'dd/MM/yyyy' }}</td>
                         <td>$ {{ mensualidad.monto }}</td>
                       </tr>
                     }

@@ -19,6 +19,7 @@ export class AlumnosService {
     return from(getDocs(ref)).pipe(
       map(snapshot => snapshot.docs.map(doc => {
         const data = doc.data();
+        console.log('dataEffects', data)
         return {
           id: doc.id,
           nombre: data['nombre'],

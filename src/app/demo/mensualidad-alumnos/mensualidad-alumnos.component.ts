@@ -39,5 +39,13 @@ export class MensualidadAlumnosComponent implements  OnInit {
 
   dataDetalle(id) {
     this.tableModal = this.mensualidadAlumos.find(alumno => alumno.id === id);
+    console.log('detalle', this.tableModal)
+  }
+
+  convertTimestampToDate(timestamp: any): Date {
+    if (timestamp && timestamp.seconds) {
+      return new Date(timestamp.seconds * 1000);
+    }
+    return null;
   }
 }
