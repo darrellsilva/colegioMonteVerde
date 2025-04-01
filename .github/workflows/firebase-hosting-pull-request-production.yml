@@ -23,7 +23,7 @@ jobs:
         run: yarn install
 
       - name: Build Angular Project (PROD)
-        run: yarn run build -- --configuration=prod
+        run: yarn run build -- --configuration=production
 
       - name: Deploy to Firebase
         uses: w9jds/firebase-action@master
