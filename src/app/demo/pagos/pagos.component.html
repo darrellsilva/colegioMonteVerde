@@ -8,17 +8,66 @@
     </h2>
     <div id="pagoMensualidad" class="accordion-collapse collapse" data-bs-parent="#pafoMensualidadCollapse">
       <div class="accordion-body">
-        <strong>This is the second item's accordion body.</strong> It is hidden by default, until the collapse plugin
-        adds the appropriate classes that we use to style each element. These classes control the overall appearance, as
-        well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our
-        default variables. It's also worth noting that just about any HTML can go within the
-        <code>.accordion-body</code>, though the transition does limit overflow.
+        <form [formGroup]="formRegisterMesual">
+          <label for="MensualidadAlumnos">Seleccionado un Alumno</label>
+          <select class="form-select" id="mensualidadAlumnos"
+                  aria-label="Floating label select example" (change)="onSelectChange($event)">
+            <option selected>Selecciona un Alumno</option>
+            @for (alumnos of alumnosAdeudados; track alumnos.id) {
+              <option value="{{ alumnos.id  }}">{{ alumnos.nombre }} {{ alumnos.apellido }}</option>
+            }
+          </select>
+
+          <div>
+            <label for="meses">Meses</label>
+            <select class="form-select widthMitad" id="meses" formControlName="mes"
+                    aria-label="Floating label select example" form>
+              <option selected>Seleccionar mes</option>
+              @for (meses of mesesPagar; track meses.mes) {
+                @if (!mesesDisponible(meses.mes)) {
+                  <option value="{{ meses.mes  }}">{{ meses.mes }}</option>
+
+                }
+              }
+            </select>
+
+            <label for="montoPago">Monto Pago</label>
+            <input type="number" class="form-control widthMitad" id="montoPago" formControlName="monto" placeholder="$5.000">
+          </div>
+
+
+          @if (listaMeses.length > 0) {
+            <h4 style="margin-top: 25px">Meses pagados</h4>
+            <table class="table">
+              <thead>
+              <tr>
+                <th scope="col">Mes</th>
+                <th scope="col">Monto</th>
+              </tr>
+              </thead>
+              <tbody>
+                @for (meses of listaMeses; track meses.mes) {
+                  <tr>
+                    <td>{{ meses.mes }}</td>
+                    <td>{{ meses.monto }}</td>
+                  </tr>
+
+                }
+              </tbody>
+            </table>
+          }
+          <button class="btn btn-success" (click)="guardarMensualidad()"> Guardar Mensualidad</button>
+        </form>
       </div>
     </div>
   </div>
 </div>
 
-<div class="accordion" id="accordionExample">
+
+
+
+
+<div class="accordion" style="margin-top: 30px" id="accordionExample">
   @for (cobros of listaOtrosCobros; track cobros.id) {
     <div class="accordion-item">
       <h2 class="accordion-header">
@@ -31,21 +80,23 @@
         <div class="accordion-body">
           <div class="form-floating">
             <form [formGroup]="formRegister">
-              <select class="form-select" id="floatingSelect" formControlName="idAlumno" aria-label="Floating label select example">
+              <label for="floatingSelect">Seleccionado un Alumno</label>
+              <select class="form-select" id="floatingSelect" formControlName="idAlumno"
+                      aria-label="Floating label select example">
                 <option selected>Selecciona un Alumno</option>
                 @for (alumnos of alumnosAdeudados; track alumnos.id) {
                   @if (!validUsuario(alumnos.id, cobros.infoPagoAlumno)) {
-                    <option value="{{ alumnos.id  }}" >{{ alumnos.nombre }} {{ alumnos.apellido }}</option>
+                    <option value="{{ alumnos.id  }}">{{ alumnos.nombre }} {{ alumnos.apellido }}</option>
                   }
                 }
               </select>
-              <label for="floatingSelect">Seleccionado un Alumno</label>
 
-              <input type="email" class="form-control" id="fechaPago" formControlName="fechaPago" placeholder="Fecha">
               <label for="fechaPago">Fecha Registro</label>
+              <input type="email" class="form-control" id="fechaPago" formControlName="fechaPago" placeholder="Fecha">
 
-              <input type="email" class="form-control" id="floatingInputValue" formControlName="monto" placeholder="name@example.com">
               <label for="floatingInputValue">Monto Pagado</label>
+              <input type="email" class="form-control" id="floatingInputValue" formControlName="monto"
+                     placeholder="name@example.com">
 
               <button class="btn btn-success" (click)="guardarRegistroPago(cobros.id)"> Guardar Registro</button>
             </form>
