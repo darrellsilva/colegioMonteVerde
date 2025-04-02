@@ -1,0 +1,57 @@
+<div class="accordion" id="pagoMensualidadCollapse">
+  <div class="accordion-item">
+    <h2 class="accordion-header">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+              data-bs-target="#pagoMensualidad" aria-expanded="false" aria-controls="pagoMensualidad">
+        Pago Mensualidad
+      </button>
+    </h2>
+    <div id="pagoMensualidad" class="accordion-collapse collapse" data-bs-parent="#pafoMensualidadCollapse">
+      <div class="accordion-body">
+        <strong>This is the second item's accordion body.</strong> It is hidden by default, until the collapse plugin
+        adds the appropriate classes that we use to style each element. These classes control the overall appearance, as
+        well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our
+        default variables. It's also worth noting that just about any HTML can go within the
+        <code>.accordion-body</code>, though the transition does limit overflow.
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="accordion" id="accordionExample">
+  @for (cobros of listaOtrosCobros; track cobros.id) {
+    <div class="accordion-item">
+      <h2 class="accordion-header">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo"
+                aria-expanded="false" aria-controls="collapseTwo" (click)="seleccionarCobro(cobros.id)">
+          Pago {{ cobros.titulo }}
+        </button>
+      </h2>
+      <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+        <div class="accordion-body">
+          <div class="form-floating">
+            <form [formGroup]="formRegister">
+              <select class="form-select" id="floatingSelect" formControlName="idAlumno" aria-label="Floating label select example">
+                <option selected>Selecciona un Alumno</option>
+                @for (alumnos of alumnosAdeudados; track alumnos.id) {
+                  @if (!validUsuario(alumnos.id, cobros.infoPagoAlumno)) {
+                    <option value="{{ alumnos.id  }}" >{{ alumnos.nombre }} {{ alumnos.apellido }}</option>
+                  }
+                }
+              </select>
+              <label for="floatingSelect">Seleccionado un Alumno</label>
+
+              <input type="email" class="form-control" id="fechaPago" formControlName="fechaPago" placeholder="Fecha">
+              <label for="fechaPago">Fecha Registro</label>
+
+              <input type="email" class="form-control" id="floatingInputValue" formControlName="monto" placeholder="name@example.com">
+              <label for="floatingInputValue">Monto Pagado</label>
+
+              <button class="btn btn-success" (click)="guardarRegistroPago(cobros.id)"> Guardar Registro</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  }
+</div>
