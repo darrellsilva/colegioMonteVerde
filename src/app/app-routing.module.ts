@@ -33,6 +33,11 @@ const routes: Routes = [
         path: 'dashboard',
         loadComponent: () => import('./demo/dashboard/dashboard.component').then((c) => c.DashboardComponent),
         ...canActivate(redirectUnauthorizedToSignin)
+      },
+      {
+        path: 'pagos',
+        loadComponent: () => import('./demo/pagos/pagos.component').then((c) => c.PagosComponent),
+        ...canActivate(redirectUnauthorizedToSignin)
       }
 
     ]
