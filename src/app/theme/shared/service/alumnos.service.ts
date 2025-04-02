@@ -9,25 +9,25 @@ import { DocumentData, DocumentReference } from '@angular/fire/compat/firestore'
   providedIn: 'root'
 })
 export class AlumnosService {
-
-  constructor(private firebase: Firestore ) { }
+  constructor(private firebase: Firestore) {}
 
   // LISTAR ALUMNOS
 
   listarAlumnos(): Observable<alumnos[]> {
     const ref = collection(this.firebase, 'alumnos'); // Corrected collection name
     return from(getDocs(ref)).pipe(
-      map(snapshot => snapshot.docs.map(doc => {
-        const data = doc.data();
-        console.log('dataEffects', data)
-        return {
-          id: doc.id,
-          nombre: data['nombre'],
-          apellido: data['apellido'],
-          emailPadre: data['emailPadre'],
-          mesesPago: data['mesesPago']
-        } as alumnos;
-      }))
+      map((snapshot) =>
+        snapshot.docs.map((doc) => {
+          const data = doc.data();
+          return {
+            id: doc.id,
+            nombre: data['nombre'],
+            apellido: data['apellido'],
+            emailPadre: data['emailPadre'],
+            mesesPago: data['mesesPago']
+          } as alumnos;
+        })
+      )
     );
   }
 
@@ -41,28 +41,27 @@ export class AlumnosService {
     return from(updateDoc(alumnoDocRef, correo));
   }
 
-
-
   // FIN LISTAR ALUMNOS
   // ----------------------------------------------------------------------
   // OTROS COBROS
   listarOtrosCobros(): Observable<otrosCobro[]> {
     const ref = collection(this.firebase, 'otrosCobros'); // Corrected collection name
     return from(getDocs(ref)).pipe(
-      map(snapshot => snapshot.docs.map(doc => {
-        const data = doc.data();
-        return {
-          id: doc.id,
-          activo: data['activo'],
-          infoPagoAlumno: data['infoPagoAlumno'],
-          titulo: data['titulo'],
-          montoCobrar: data['montoCobrar'],
-          montoTotalRecaudado: data['montoTotalRecaudado'],
-          cantidadAlumnosPago: data['cantidadAlumnosPago']
-        } as otrosCobro;
-      }))
+      map((snapshot) =>
+        snapshot.docs.map((doc) => {
+          const data = doc.data();
+          return {
+            id: doc.id,
+            activo: data['activo'],
+            infoPagoAlumno: data['infoPagoAlumno'],
+            titulo: data['titulo'],
+            montoCobrar: data['montoCobrar'],
+            montoTotalRecaudado: data['montoTotalRecaudado'],
+            cantidadAlumnosPago: data['cantidadAlumnosPago']
+          } as otrosCobro;
+        })
+      )
     );
-
   }
 
   editarCobros(dataModificar: any): Observable<void> {
@@ -70,8 +69,11 @@ export class AlumnosService {
     return from(updateDoc(alumnoDocRef, dataModificar));
   }
 
+  editarInfoPagoAlmno(dataModificar: any, dataRegistro: any): Observable<void> {
+    const alumnoDocRef = doc(this.firebase, `otrosCobros/${dataModificar.id}`);
+    return from(updateDoc(alumnoDocRef, dataRegistro ));
+  }
+
   // FIN OTROS COBROS
-
-
 }
 
