@@ -1,3 +1,15 @@
+<form [formGroup]="formBusqueda">
+  <div class="form-floating">
+    <input type="text" class="form-control" id="inputBusqueda" style="background: white; margin-bottom: 20px" formControlName="busqueda" placeholder="Buscar Alumnos" (input)="filtrarAlumnos()">
+    <label for="inputBusqueda">Buscas Alumno</label>
+  </div>
+  @if (alertNoEncontrado) {
+    <div class="alert alert-danger" role="alert">
+      Usuario no encontrado!
+    </div>
+  }
+</form>
+
 <div class="table-responsive">
   <table class="table table-desktop">
     <thead>

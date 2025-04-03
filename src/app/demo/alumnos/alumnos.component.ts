@@ -32,7 +32,7 @@ export class AlumnosComponent implements OnInit {
 
   ngOnInit(): void {
     this.store.select('listarAlumnos').subscribe((alumnos) => {
-      this.listaAlumnos = alumnos;
+      this.listaAlumnos = [...alumnos].sort((a, b) => a.nombre.localeCompare(b.nombre));
     });
   }
 

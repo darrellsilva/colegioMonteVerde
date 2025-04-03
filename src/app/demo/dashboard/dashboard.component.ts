@@ -48,6 +48,7 @@ export class DashboardComponent implements OnInit {
       if (alumnosRegistrados.length > 0) {
         this.cantidadDealumnosPago();
         this.listaAlumnos = alumnosRegistrados;
+        this.cantidadDealumnosPago();
       }
     });
   }

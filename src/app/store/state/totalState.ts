@@ -11,13 +11,21 @@ export interface alumnos {
   ];
 }
 
-export interface otrosCobro{
+export interface otrosCobro {
   id: string;
   activo: boolean;
   titulo: string;
   montoCobrar: number;
+  idCobro: string;
   montoTotalRecaudado: number;
   cantidadAlumnosPago: number;
+  infoGasto: [
+    {
+      descripcionGasto: string;
+      fechaGasto: string;
+      totalGasto: number;
+    }
+  ];
   infoPagoAlumno: [
     {
       fechaPago: string;
@@ -27,18 +35,18 @@ export interface otrosCobro{
   ];
 }
 
-export interface alumnosPago{
+export interface alumnosPago {
   nombre: string;
   apellido: string;
   estado: boolean;
 }
 
-export interface sesion{
+export interface sesion {
   email: string;
   password: string;
 }
 
-export interface infoApoderado{
+export interface infoApoderado {
   nombre: string;
   apellido: string;
   correoPersonal: string;
@@ -48,10 +56,10 @@ export interface infoApoderado{
   rolUsuario: string;
 }
 
-export interface correoInstitucional{
+export interface correoInstitucional {
   correoInstitucional: string;
 }
 
-export interface spinner{
+export interface spinner {
   spinner: boolean;
 }
