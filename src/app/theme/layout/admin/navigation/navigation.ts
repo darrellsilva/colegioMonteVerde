@@ -70,38 +70,38 @@ export const NavigationItems: NavigationItem[] = [
         classes: 'nav-item',
         icon: 'feather icon-file-text'
       },
-      {
-        id: 'profesores',
-        title: 'Profesores',
-        type: 'item',
-        url: '/profesores',
-        classes: 'nav-item',
-        icon: 'feather icon-server'
-      },
-      {
-        id: 'cursos',
-        title: 'Cursos',
-        type: 'item',
-        url: '/cursos',
-        classes: 'nav-item',
-        icon: 'feather icon-server'
-      },
-      {
-        id: 'asistencia',
-        title: 'Asistencia',
-        type: 'item',
-        url: '/asistencia',
-        classes: 'nav-item',
-        icon: 'feather icon-server'
-      },
-      {
-        id: 'notas',
-        title: 'Notas',
-        type: 'item',
-        url: '/notas',
-        classes: 'nav-item',
-        icon: 'feather icon-server'
-      }
+      // {
+      //   id: 'profesores',
+      //   title: 'Profesores',
+      //   type: 'item',
+      //   url: '/profesores',
+      //   classes: 'nav-item',
+      //   icon: 'feather icon-server'
+      // },
+      // {
+      //   id: 'cursos',
+      //   title: 'Cursos',
+      //   type: 'item',
+      //   url: '/cursos',
+      //   classes: 'nav-item',
+      //   icon: 'feather icon-server'
+      // },
+      // {
+      //   id: 'asistencia',
+      //   title: 'Asistencia',
+      //   type: 'item',
+      //   url: '/asistencia',
+      //   classes: 'nav-item',
+      //   icon: 'feather icon-server'
+      // },
+      // {
+      //   id: 'notas',
+      //   title: 'Notas',
+      //   type: 'item',
+      //   url: '/notas',
+      //   classes: 'nav-item',
+      //   icon: 'feather icon-server'
+      // }
     ]
   }
 ];

@@ -53,7 +53,9 @@ export class AlumnosService {
           return {
             id: doc.id,
             activo: data['activo'],
+            infoGasto: data['infoGasto'],
             infoPagoAlumno: data['infoPagoAlumno'],
+            idCobro: data['idCobro'],
             titulo: data['titulo'],
             montoCobrar: data['montoCobrar'],
             montoTotalRecaudado: data['montoTotalRecaudado'],
@@ -72,6 +74,11 @@ export class AlumnosService {
   editarInfoPagoAlmno(dataModificar: any, dataRegistro: any): Observable<void> {
     const alumnoDocRef = doc(this.firebase, `otrosCobros/${dataModificar.id}`);
     return from(updateDoc(alumnoDocRef, dataRegistro ));
+  }
+
+  guardarOtrosCobros(otrosCobro: any): Observable<any> {
+    const ref = collection(this.firebase, 'otrosCobros');
+    return from(addDoc(ref, otrosCobro));
   }
 
   // FIN OTROS COBROS

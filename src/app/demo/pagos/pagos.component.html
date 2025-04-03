@@ -1,3 +1,7 @@
+<button type="button" class="btn btn-success" style="margin-bottom: 15px" data-bs-toggle="modal" data-bs-target="#exampleModal">
+  Agregar Cobros
+</button>
+
 <div class="accordion" id="pagoMensualidadCollapse">
   <div class="accordion-item">
     <h2 class="accordion-header">
@@ -67,16 +71,16 @@
 
 
 
-<div class="accordion" style="margin-top: 30px" id="accordionExample">
-  @for (cobros of listaOtrosCobros; track cobros.id) {
-    <div class="accordion-item">
+  <div class="accordion" style="margin-top: 30px" id="accordionExample">
+    @for (cobros of listaOtrosCobros; track cobros.id) {
+      <div class="accordion-item">
       <h2 class="accordion-header">
-        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo"
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" [attr.data-bs-target]="'#prueba' + cobros.idCobro"
                 aria-expanded="false" aria-controls="collapseTwo" (click)="seleccionarCobro(cobros.id)">
           Pago {{ cobros.titulo }}
         </button>
       </h2>
-      <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+      <div [attr.id]="'prueba' + cobros.idCobro" class="accordion-collapse collapse" [attr.data-bs-target]="'#prueba' + cobros.idCobro">
         <div class="accordion-body">
           <div class="form-floating">
             <form [formGroup]="formRegister">
@@ -104,5 +108,42 @@
         </div>
       </div>
     </div>
-  }
+}
+  </div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Agregar Cobro</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="formCobro">
+          <div class="form-floating separacion">
+            <select class="form-select" id="selectaActivated" aria-label="Floating label select example" formControlName="activo">
+              <option selected>Seleccionado una Opcion</option>
+              <option value="true">Activar</option>
+              <option value="false">Desactivar</option>
+            </select>
+            <label for="selectaActivated">Activacion</label>
+          </div>
+          <div class="form-floating mb-3 separacion">
+            <input type="text" class="form-control" id="floatingInput" formControlName="titulo">
+            <label for="floatingInput">Titulo</label>
+          </div>
+          <div class="form-floating separacion">
+            <input type="text" class="form-control" id="floatingPassword" formControlName="montoCobrar">
+            <label for="floatingPassword">Monto a cobrar</label>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-primary" (click)="guardarCobro()" [disabled]="!formCobro.valid">Guardar Cobro</button>
+      </div>
+    </div>
+  </div>
 </div>
