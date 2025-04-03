@@ -7,6 +7,7 @@ import { formatDate } from '@angular/common';
 import { AlumnosService } from '../../theme/shared/service/alumnos.service';
 import { listarAlumnos, listarOtrosCobros } from '../../store/action/totalActions';
 import { SpinnerServiceService } from '../../theme/shared/service/spinner-service.service';
+import { otrosCobro } from '../../store/state/totalState';
 
 @Component({
   selector: 'app-pagos',
@@ -17,6 +18,7 @@ import { SpinnerServiceService } from '../../theme/shared/service/spinner-servic
 export class PagosComponent implements OnInit {
   formRegister: FormGroup;
   formRegisterMesual: FormGroup;
+  formCobro: FormGroup;
   listaOtrosCobros: any = [];
   alumnosAdeudados: any = [];
   listaMeses: any = [];
@@ -39,13 +41,19 @@ export class PagosComponent implements OnInit {
       fechaPago: ['', Validators.required],
       idAlumno: ['', Validators.required]
     });
+
+    this.formCobro = this.fb.group({
+      activo: [false],
+      titulo: ['', Validators.required],
+      montoCobrar: ['', Validators.required],
+    })
   }
 
   ngOnInit(): void {
     combineLatest([this.store.select('otrosCobros'), this.store.select('listarAlumnos')]).subscribe(([otrosCobrs, listarAlumnos]) => {
       if (otrosCobrs['otrosCobros'] != null || otrosCobrs['otrosCobros'] != undefined) {
         this.listaOtrosCobros = otrosCobrs['otrosCobros'];
-        this.alumnosAdeudados = listarAlumnos;
+        this.alumnosAdeudados = [...listarAlumnos].sort((a, b) => a.nombre.localeCompare(b.nombre));
       }
     });
   }
@@ -156,5 +164,38 @@ export class PagosComponent implements OnInit {
     }else {
       return false;
     }
+  }
+
+  guardarCobro() {
+
+    const newCobro: otrosCobro = {
+      id: '',
+      activo: this.formCobro.value.activo,
+      titulo: this.formCobro.value.titulo,
+      montoCobrar: Number(this.formCobro.value.montoCobrar),
+      idCobro: this.formCobro.value.titulo.replace(/\s/g, ''),
+      montoTotalRecaudado: 0,
+      cantidadAlumnosPago: 0,
+      infoGasto: [
+        {
+          descripcionGasto: '',
+          fechaGasto: '',
+          totalGasto: 0
+        }
+      ],
+      infoPagoAlumno: [
+        {
+          fechaPago: '',
+          montoPago: 0,
+          idAlumno: ''
+        }
+      ]
+    };
+
+
+    this.service.guardarOtrosCobros(newCobro).subscribe((response) => {
+      this.store.dispatch(listarOtrosCobros());
+      window.location.reload();
+    });
   }
 }
