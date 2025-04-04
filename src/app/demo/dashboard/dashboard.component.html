@@ -21,6 +21,9 @@
       </app-card>
     </div>
   }
+
+
+
   @for (otrosCobros of listaOtrosCobros; track otrosCobros.id) {
     @if (otrosCobros.activo) {
       <div ngbAccordion #accordion="ngbAccordion" style="margin-top: 20px">
@@ -31,6 +34,8 @@
           <div ngbAccordionCollapse>
             <p style="margin-left: 10px; margin-top: 10px"><span class="fw-bolder">Cantidad Pagada:</span> {{ otrosCobros.montoTotalRecaudado }}</p>
             <p style="margin-left: 10px"><span class="fw-bolder">Cantidad de alumnos:</span> {{ otrosCobros.cantidadAlumnosPago }}</p>
+            <p style="margin-left: 10px"><span class="fw-bolder">Total Gasto:</span> {{ totalGastos(otrosCobros, otrosCobros.id) }}</p>
+            <p style="margin-left: 10px"><app-detalle-gasto-dashboard [data] ="otrosCobros.infoGasto"></app-detalle-gasto-dashboard></p>
             <div ngbAccordionBody>
               <ng-template>
                 <table class="table">

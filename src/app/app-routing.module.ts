@@ -38,6 +38,16 @@ const routes: Routes = [
         path: 'pagos',
         loadComponent: () => import('./demo/pagos/pagos.component').then((c) => c.PagosComponent),
         ...canActivate(redirectUnauthorizedToSignin)
+      },
+      {
+        path: 'profesores',
+        loadComponent: () => import('./demo/info-profesores/info-profesores.component').then((c) => c.InfoProfesoresComponent),
+        ...canActivate(redirectUnauthorizedToSignin)
+      },
+      {
+        path: 'gastos',
+        loadComponent: () => import('./demo/gastos/gastos.component').then((c) => c.GastosComponent),
+        ...canActivate(redirectUnauthorizedToSignin)
       }
 
     ]

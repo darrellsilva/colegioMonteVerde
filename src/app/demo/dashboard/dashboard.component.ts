@@ -16,14 +16,14 @@ import '../../../assets/charts/amchart/radar.js';
 import '../../../assets/charts/amchart/worldLow.js';
 import { AppState } from '../../store/indexReducer/indexReducer';
 import { Store } from '@ngrx/store';
-import { listarAlumnos } from '../../store/action/totalActions';
 import { combineLatest } from 'rxjs';
-import { alumnosPago } from '../../store/state/totalState';
 import { SpinnerServiceService } from '../../theme/shared/service/spinner-service.service';
+import { InfoProfesoresComponent } from '../info-profesores/info-profesores.component';
+import { DetalleGastoDashboardComponent } from '../detalle-gasto-dashboard/detalle-gasto-dashboard.component';
 
 @Component({
   selector: 'app-dashboard',
-  imports: [CommonModule, SharedModule],
+  imports: [CommonModule, SharedModule, DetalleGastoDashboardComponent],
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
@@ -74,7 +74,7 @@ export class DashboardComponent implements OnInit {
         progress: this.porcentajePagado,
         design: 'col-md-6',
         progress_bg: 'progress-c-theme'
-      },
+      }
       // {
       //   title: 'Pago Mensualidad Completa',
       //   icon: 'icon-arrow-up text-c-green',
@@ -85,7 +85,6 @@ export class DashboardComponent implements OnInit {
       //   progress_bg: 'progress-c-theme'
       // }
     ];
-
   }
   // public method
   sales = [
@@ -97,7 +96,7 @@ export class DashboardComponent implements OnInit {
       progress: this.porcentajePagado,
       design: 'col-md-6',
       progress_bg: 'progress-c-theme'
-    },
+    }
     // {
     //   title: 'Pago Mensualidad Completa',
     //   icon: 'icon-arrow-up text-c-green',
@@ -114,5 +113,15 @@ export class DashboardComponent implements OnInit {
       return false;
     }
     return pagos.some((pago) => pago.idAlumno === alumnoId);
+  }
+
+  totalGastos(otrosCobros: any, id) {
+    let montoGastoTotal: number = 0;
+
+    otrosCobros.infoGasto.forEach((infoGasto) => {
+      montoGastoTotal = montoGastoTotal + infoGasto.totalGasto;
+    });
+
+    return montoGastoTotal;
   }
 }

@@ -1,0 +1,17 @@
+.tableDesktop{
+  display: table;
+  width: 100%;
+}
+
+.tableMobile{
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .tableDesktop{
+    display: none;
+  }
+  .tableMobile{
+    display: flex;
+  }
+}

@@ -84,8 +84,8 @@
         <div class="accordion-body">
           <div class="form-floating">
             <form [formGroup]="formRegister">
-              <label for="floatingSelect">Seleccionado un Alumno</label>
-              <select class="form-select" id="floatingSelect" formControlName="idAlumno"
+              <label [attr.for]="'selectAlumno' + cobros.idCobro">Seleccionado un Alumno</label>
+              <select class="form-select" [attr.id]="'selectAlumno' + cobros.idCobro" formControlName="idAlumno"
                       aria-label="Floating label select example">
                 <option selected>Selecciona un Alumno</option>
                 @for (alumnos of alumnosAdeudados; track alumnos.id) {
@@ -95,11 +95,11 @@
                 }
               </select>
 
-              <label for="fechaPago">Fecha Registro</label>
-              <input type="email" class="form-control" id="fechaPago" formControlName="fechaPago" placeholder="Fecha">
+              <label [attr.for]="'fechaPago' + cobros.idCobro">Fecha Registro</label>
+              <input type="text" class="form-control" [attr.id]="'fechaPago' + cobros.idCobro" formControlName="fechaPago" placeholder="Fecha">
 
-              <label for="floatingInputValue">Monto Pagado</label>
-              <input type="email" class="form-control" id="floatingInputValue" formControlName="monto"
+              <label [attr.for]="'montoPagado' + cobros.idCobro">Monto Pagado</label>
+              <input type="text" class="form-control" [attr.id]="'montoPagado' + cobros.idCobro" formControlName="monto"
                      placeholder="name@example.com">
 
               <button class="btn btn-success" (click)="guardarRegistroPago(cobros.id)"> Guardar Registro</button>
