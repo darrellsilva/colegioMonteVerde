@@ -19,10 +19,11 @@ import { Store } from '@ngrx/store';
 import { combineLatest } from 'rxjs';
 import { SpinnerServiceService } from '../../theme/shared/service/spinner-service.service';
 import { InfoProfesoresComponent } from '../info-profesores/info-profesores.component';
+import { DetalleGastoDashboardComponent } from '../detalle-gasto-dashboard/detalle-gasto-dashboard.component';
 
 @Component({
   selector: 'app-dashboard',
-  imports: [CommonModule, SharedModule],
+  imports: [CommonModule, SharedModule, DetalleGastoDashboardComponent],
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
@@ -112,5 +113,15 @@ export class DashboardComponent implements OnInit {
       return false;
     }
     return pagos.some((pago) => pago.idAlumno === alumnoId);
+  }
+
+  totalGastos(otrosCobros: any, id) {
+    let montoGastoTotal: number = 0;
+
+    otrosCobros.infoGasto.forEach((infoGasto) => {
+      montoGastoTotal = montoGastoTotal + infoGasto.totalGasto;
+    });
+
+    return montoGastoTotal;
   }
 }

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { catchError, EMPTY, map, mergeMap, of, tap } from 'rxjs';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import {
+  activarSpinner, deleteGasto,
   guardarGasto,
   listarOtrosCobros,
   listarOtrosCobrosFail,
@@ -17,6 +18,7 @@ export class OtrosCobrosEffects {
   loadOtrosCobros$;
   modificarOtrosCobros$;
   agregaGasto$;
+  deleteGasto$;
   otrosCobros: any = []
 
   constructor(
@@ -69,26 +71,42 @@ export class OtrosCobrosEffects {
       { dispatch: false }
     );
 
+    // AGREGAR GASTO
     this.agregaGasto$ = createEffect(
       () =>
         this.actions$.pipe(
           ofType(guardarGasto), // Filtrar la acción específica
           tap((action) => {
-            // Ejecutar la lógica que no retorna un Observable
             this.executeSomeLogic(action);
           })
         ),
       { dispatch: false }
     );
+
+
+    // DELETE GASTO
+    this.deleteGasto$ = createEffect(
+      () =>
+        this.actions$.pipe(
+          ofType(deleteGasto), // Filtrar la acción específica
+          tap((action) => {
+            this.deleteGastos(action);
+          })
+        ),
+      { dispatch: false }
+    );
+
+
   }
 
+
+
   private executeSomeLogic(action: any) {
-    console.log('Esta llegando aqui', action)
     this.store.select('otrosCobros').subscribe(otrosCobros => {
       this.otrosCobros = otrosCobros;
     })
 
-    const filterCobros = this.otrosCobros['otrosCobros'].filter(otrosCobro => otrosCobro.id === action.gasto.id);
+    const filterCobros = this.otrosCobros['otrosCobros'].filter(otrosCobro => otrosCobro.id === action.id);
     const newGasto = {
       infoGasto : []
     }
@@ -107,9 +125,19 @@ export class OtrosCobrosEffects {
       newGasto.infoGasto.push(dataNueva);
 
     console.log('data agregada', newGasto);
+    this.fireStoreService.editarInfoPagoAlmno(action, newGasto).subscribe(gasto =>{
+      console.log('gasto', gasto);
+      this.store.dispatch(listarOtrosCobros());
+      this.store.dispatch(activarSpinner({ spinner: false }))
+    });
 
+  }
 
-
-
+  private deleteGastos(action: any) {
+    this.fireStoreService.editarInfoPagoAlmno(action, action.gasto).subscribe(gasto => {
+      console.log('gasto', gasto);
+      this.store.dispatch(listarOtrosCobros());
+      this.store.dispatch(activarSpinner({ spinner: false }))
+    });
   }
 }
