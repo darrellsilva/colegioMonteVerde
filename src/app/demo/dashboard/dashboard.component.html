@@ -21,6 +21,9 @@
       </app-card>
     </div>
   }
+
+
+
   @for (otrosCobros of listaOtrosCobros; track otrosCobros.id) {
     @if (otrosCobros.activo) {
       <div ngbAccordion #accordion="ngbAccordion" style="margin-top: 20px">

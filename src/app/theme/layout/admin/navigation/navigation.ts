@@ -70,19 +70,19 @@ export const NavigationItems: NavigationItem[] = [
         classes: 'nav-item',
         icon: 'feather icon-file-text'
       },
+      {
+        id: 'gastos',
+        title: 'Gastos',
+        type: 'item',
+        url: '/gastos',
+        classes: 'nav-item',
+        icon: 'feather icon-file-text'
+      },
       // {
       //   id: 'profesores',
       //   title: 'Profesores',
       //   type: 'item',
       //   url: '/profesores',
-      //   classes: 'nav-item',
-      //   icon: 'feather icon-server'
-      // },
-      // {
-      //   id: 'cursos',
-      //   title: 'Cursos',
-      //   type: 'item',
-      //   url: '/cursos',
       //   classes: 'nav-item',
       //   icon: 'feather icon-server'
       // },

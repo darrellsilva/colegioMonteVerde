@@ -1,0 +1,80 @@
+<div class="accordion" id="accordionExample">
+  @for (otrosGastos of listGastos; track otrosGastos.id) {
+    <div class="accordion-item">
+      <h2 class="accordion-header">
+        <button class="accordion-button" type="button" data-bs-toggle="collapse" [attr.data-bs-target]="'#prueba' + otrosGastos.idCobro"
+                aria-expanded="true" aria-controls="collapseOne">
+         Gasto {{ otrosGastos.titulo }}
+        </button>
+      </h2>
+      <div [attr.id]="'prueba' + otrosGastos.idCobro" class="accordion-collapse collapse show" [attr.data-bs-target]="'#prueba' + otrosGastos.idCobro">
+        <div class="accordion-body">
+          <!-- Button trigger modal -->
+          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="guardarGasto(otrosGastos.id)">
+            Agregar Gasto
+          </button>
+          <table class="table">
+            <thead>
+            <tr>
+              <th scope="col">Detalle gasto</th>
+              <th scope="col">Monto gastado</th>
+              <th scope="col">Fecha</th>
+              <th scope="col">Boleta</th>
+            </tr>
+            </thead>
+            <tbody>
+              @for (gastosRealizados of otrosGastos.infoGasto; track gastosRealizados.totalGasto) {
+                <tr>
+                  <td>{{ gastosRealizados.descripcionGasto }}</td>
+                  <td>{{ gastosRealizados.totalGasto }}</td>
+                  <td>{{ gastosRealizados.fechaGasto }}</td>
+                  <td> X </td>
+                </tr>
+              }
+
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  }
+</div>
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Guardar Gasto</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="listGastoAdicional">
+          <div class="mb-3">
+            <label for="detalleGasto" class="form-label">Detalle del gasto</label>
+            <input type="text" class="form-control" id="detalleGasto" formControlName="detalleGasto" placeholder="Descripcion del gasto">
+          </div>
+          <div class="mb-3">
+            <label for="montoGasto" class="form-label">Monto del gasto</label>
+            <input type="text" class="form-control" id="montoGasto" placeholder="Ej. $1000" formControlName="montoGasto">
+          </div>
+          <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label">Cargar imagen</label>
+            <input type="file" class="form-control" id="exampleFormControlInput1" accept="image/*" (change)="onFileChange($event)">
+          </div>
+          @if (base64Image !== '' && base64Image !== null) {
+            <div>
+              <img src="{{base64Image}}" alt="imagenBoleta">
+            </div>
+          }
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-primary" (click)="guardarGastoConFoto()" [disabled]="!listGastoAdicional.valid">Guardar Gastos</button>
+      </div>
+    </div>
+  </div>
+</div>
