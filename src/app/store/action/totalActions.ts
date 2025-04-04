@@ -28,3 +28,4 @@ export const activarSpinner = createAction('[SPINNER] Activar Spinner', props<{s
 // GUARDAR GASTO
 export const guardarGasto = createAction('[GASTO] Guardar Gasto', props<{gasto: any, id: any}>());
 export const deleteGasto = createAction('[GASTO] Delete gastos', props<{gasto: any, id: any}>());
+export const guardadoConExito = createAction('[GASTO] Guardado con exito', props<{guardado: boolean}>());
