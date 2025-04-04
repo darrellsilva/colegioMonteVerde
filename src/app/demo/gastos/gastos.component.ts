@@ -64,7 +64,6 @@ export class GastosComponent implements OnInit {
       foto: this.base64Image
     };
 
-    debugger
     this.store.dispatch(guardarGasto({ gasto: newGasto, id: this.idSeleccionado }));
     console.log('Gastos guardado', newGasto);
   }
