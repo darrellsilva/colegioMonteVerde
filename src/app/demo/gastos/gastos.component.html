@@ -12,8 +12,8 @@
            [attr.data-bs-target]="'#prueba' + otrosGastos.idCobro">
         <div class="accordion-body">
           <!-- Button trigger modal -->
-          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"
-                  (click)="guardarGasto(otrosGastos.id)">
+          <button type="button" class="btn btn-primary"
+                  (click)="guardarGasto('modalGuardarGasto',otrosGastos.id)">
             Agregar Gasto
           </button>
 
@@ -23,21 +23,24 @@
                 <div class="card">
                   <div class="card-body">
                     <div style="text-align: end">
-                    <button class="btn btn-danger"
-                            (click)="deleteGasto(otrosGastos.id, gastosRealizados.descripcionGasto)">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                           class="bi bi-trash" viewBox="0 0 16 16">
-                        <path
-                          d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z" />
-                        <path
-                          d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z" />
-                      </svg>
-                    </button>
+                      <button class="btn btn-danger"
+                              (click)="deleteGasto(otrosGastos.id, gastosRealizados.descripcionGasto)">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                             class="bi bi-trash" viewBox="0 0 16 16">
+                          <path
+                            d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z" />
+                          <path
+                            d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z" />
+                        </svg>
+                      </button>
                     </div>
-                    <h5 class="card-title"><span class="fw-bolder">Descripcion: </span> {{ gastosRealizados.descripcionGasto }}</h5>
+                    <h5 class="card-title"><span
+                      class="fw-bolder">Descripcion: </span> {{ gastosRealizados.descripcionGasto }}</h5>
                     <p class="card-text"><span class="fw-bolder">Gasto: </span>{{ gastosRealizados.totalGasto }}</p>
-                    <p class="card-text"><span class="fw-bolder">Fecha Gasto: </span>{{ gastosRealizados.fechaGasto }}</p>
-                    <button class="btn btn-primary" style="width: 100%" (click)="openImg('modalImg', gastosRealizados.imgBoleta)"><span><svg
+                    <p class="card-text"><span class="fw-bolder">Fecha Gasto: </span>{{ gastosRealizados.fechaGasto }}
+                    </p>
+                    <button class="btn btn-primary" style="width: 100%"
+                            (click)="openImg('modalImg', gastosRealizados.imgBoleta)"><span><svg
                       xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                       class="bi bi-file-earmark" viewBox="0 0 16 16">
                       <path
@@ -58,7 +61,7 @@
 
 
 <!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="modalGuardarGasto" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -79,7 +82,7 @@
           </div>
           <div class="mb-3">
             <label for="exampleFormControlInput1" class="form-label">Cargar imagen</label>
-            <input type="file" class="form-control" id="exampleFormControlInput1" accept="image/*"
+            <input type="file" class="form-control" id="exampleFormControlInput1" formControlName="img" accept="image/*"
                    (change)="onFileChange($event)">
           </div>
           @if (base64Image !== '' && base64Image !== null) {

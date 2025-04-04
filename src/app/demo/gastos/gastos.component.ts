@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AppState } from '../../store/indexReducer/indexReducer';
 import { Store } from '@ngrx/store';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { activarSpinner, deleteGasto, guardarGasto } from '../../store/action/totalActions';
+import { activarSpinner, deleteGasto, guardadoConExito, guardarGasto } from '../../store/action/totalActions';
 
 declare var bootstrap: any;
 
@@ -15,6 +15,7 @@ declare var bootstrap: any;
 export class GastosComponent implements OnInit {
   listGastoAdicional: FormGroup;
   private currentModal: any;
+  private currentModalGasto: any;
   listGastos;
   any = [];
   base64Image: string | ArrayBuffer | null = null;
@@ -27,7 +28,8 @@ export class GastosComponent implements OnInit {
   ) {
     this.listGastoAdicional = fb.group({
       detalleGasto: ['', Validators.required],
-      montoGasto: ['', Validators.required]
+      montoGasto: ['', Validators.required],
+      img: ['']
     });
   }
 
@@ -38,8 +40,22 @@ export class GastosComponent implements OnInit {
     });
   }
 
-  guardarGasto(id) {
-    this.idSeleccionado = id;
+  guardarGasto(id, idGasto) {
+    this.store.select('guardadoConExito').subscribe((res) => {
+      console.log('redux guardado',res)
+      if (res.guardado){
+        this.base64Image = '';
+        this.listGastoAdicional.reset();
+        this.currentModalGasto.hide();
+        this.store.dispatch(guardadoConExito({ guardado: false }));
+      }
+    })
+
+
+    const modalElement = document.getElementById(id);
+    this.currentModalGasto = new bootstrap.Modal(modalElement);
+    this.currentModalGasto.show();
+    this.idSeleccionado = idGasto;
   }
 
   onFileChange(event: any) {
@@ -47,8 +63,37 @@ export class GastosComponent implements OnInit {
     if (file) {
       const reader = new FileReader();
       reader.onload = (e) => {
-        this.base64Image = e.target?.result;
-        console.log(this.base64Image); // Aquí puedes manejar la imagen en base64
+        const img = new Image();
+        img.onload = () => {
+          const canvas = document.createElement('canvas');
+          const ctx = canvas.getContext('2d');
+
+          // Set the desired resolution
+          const MAX_WIDTH = 300;
+          const MAX_HEIGHT = 300;
+          let width = img.width;
+          let height = img.height;
+
+          if (width > height) {
+            if (width > MAX_WIDTH) {
+              height *= MAX_WIDTH / width;
+              width = MAX_WIDTH;
+            }
+          } else {
+            if (height > MAX_HEIGHT) {
+              width *= MAX_HEIGHT / height;
+              height = MAX_HEIGHT;
+            }
+          }
+
+          canvas.width = width;
+          canvas.height = height;
+          ctx.drawImage(img, 0, 0, width, height);
+
+          this.base64Image = canvas.toDataURL('image/png');
+          console.log(this.base64Image); // Here you can handle the base64 image
+        };
+        img.src = e.target?.result as string;
       };
       reader.readAsDataURL(file);
     }
@@ -56,7 +101,6 @@ export class GastosComponent implements OnInit {
 
   guardarGastoConFoto() {
     this.store.dispatch(activarSpinner({ spinner: true }));
-
     const newGasto = {
       fechaGasto: new Date().toLocaleDateString('es-ES'),
       detalleGasto: this.listGastoAdicional.get('detalleGasto')?.value,

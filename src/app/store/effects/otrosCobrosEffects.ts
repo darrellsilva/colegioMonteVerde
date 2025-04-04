@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { catchError, EMPTY, map, mergeMap, of, tap } from 'rxjs';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import {
-  activarSpinner, deleteGasto,
+  activarSpinner, deleteGasto, guardadoConExito,
   guardarGasto,
   listarOtrosCobros,
   listarOtrosCobrosFail,
@@ -124,10 +124,10 @@ export class OtrosCobrosEffects {
 
       newGasto.infoGasto.push(dataNueva);
 
-    console.log('data agregada', newGasto);
     this.fireStoreService.editarInfoPagoAlmno(action, newGasto).subscribe(gasto =>{
       console.log('gasto', gasto);
       this.store.dispatch(listarOtrosCobros());
+      this.store.dispatch(guardadoConExito({ guardado: true}))
       this.store.dispatch(activarSpinner({ spinner: false }))
     });
 

@@ -64,3 +64,7 @@ export interface correoInstitucional {
 export interface spinner {
   spinner: boolean;
 }
+
+export interface guardadoExitoso{
+  guardado: boolean;
+}
