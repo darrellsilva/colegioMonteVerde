@@ -17,6 +17,7 @@ import { LoginService } from './app/theme/shared/service/login.service';
 import { FIREBASE_OPTIONS } from '@angular/fire/compat';
 import { environment } from './environments/environment';
 import { infoApoderadosEffects } from './app/store/effects/infoApoderadoEffects';
+import { AngularFireStorageModule } from '@angular/fire/compat/storage';
 
 if (environment.production) {
   enableProdMode();
@@ -24,7 +25,7 @@ if (environment.production) {
 
 bootstrapApplication(AppComponent,{
   providers: [
-    importProvidersFrom(BrowserModule, AppRoutingModule),
+    importProvidersFrom(BrowserModule, AppRoutingModule, AngularFireStorageModule),
     provideAnimations(),
     provideStore(appReducers),
     provideEffects([AlumnosEffects, OtrosCobrosEffects, infoApoderadosEffects]),
