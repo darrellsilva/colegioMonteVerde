@@ -15,7 +15,7 @@
                 <div class="card-body">
                   <h5 class="card-title"><span class="fw-bolder">Descripcion: </span>{{ detalleGasto.descripcionGasto }}</h5>
                   <p class="card-text"><span class="fw-bolder">Gasto: </span>{{ detalleGasto.totalGasto }}</p>
-                  <button class="btn btn-primary" style="width: 100%" (click)="openImg('modalImg', detalleGasto.imgBoleta)"><span><svg
+                  <button class="btn btn-primary" style="width: 100%" (click)="openImg(detalleGasto.imgBoleta)"><span><svg
                     xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                     class="bi bi-file-earmark" viewBox="0 0 16 16">
                       <path

@@ -12,6 +12,7 @@ import {
 import { AlumnosService } from '../../theme/shared/service/alumnos.service';
 import { Store } from '@ngrx/store';
 import { AppState } from '../indexReducer/indexReducer';
+import { StorageService } from '../../theme/shared/service/storage.service';
 
 @Injectable()
 export class OtrosCobrosEffects {
@@ -24,7 +25,8 @@ export class OtrosCobrosEffects {
   constructor(
     private actions$: Actions,
     private fireStoreService: AlumnosService,
-    private store: Store<AppState>
+    private store: Store<AppState>,
+    private storega: StorageService,
   ) {
     // LISTAR CATEGORIAS
     this.loadOtrosCobros$ = createEffect(() =>
@@ -119,7 +121,8 @@ export class OtrosCobrosEffects {
         descripcionGasto: action.gasto.detalleGasto,
         fechaGasto: action.gasto.fechaGasto,
         totalGasto: Number( action.gasto.montoGasto),
-        imgBoleta: action.gasto.foto
+        imgBoleta: action.gasto.foto,
+        filePath: action.gasto.pathImage
       }
 
       newGasto.infoGasto.push(dataNueva);
@@ -135,7 +138,6 @@ export class OtrosCobrosEffects {
 
   private deleteGastos(action: any) {
     this.fireStoreService.editarInfoPagoAlmno(action, action.gasto).subscribe(gasto => {
-      console.log('gasto', gasto);
       this.store.dispatch(listarOtrosCobros());
       this.store.dispatch(activarSpinner({ spinner: false }))
     });

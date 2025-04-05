@@ -32,6 +32,7 @@ export class DashboardComponent implements OnInit {
   listaOtrosCobros: any = [];
   porcentajePagado: number = 0;
   montoPagado: number = 0;
+  montoTotal : number = 0;
 
   constructor(
     private store: Store<AppState>,
@@ -121,7 +122,11 @@ export class DashboardComponent implements OnInit {
     otrosCobros.infoGasto.forEach((infoGasto) => {
       montoGastoTotal = montoGastoTotal + infoGasto.totalGasto;
     });
-
+    this.montoTotal = montoGastoTotal;
     return montoGastoTotal;
+  }
+
+  montoFinal(otrosCobros: any, montoTotalRecaudado: number) {
+    return montoTotalRecaudado - this.montoTotal;
   }
 }

@@ -25,6 +25,7 @@ export interface otrosCobro {
       fechaGasto: string;
       totalGasto: number;
       imgBoleta: string;
+      filePath: string;
     }
   ];
   infoPagoAlumno: [

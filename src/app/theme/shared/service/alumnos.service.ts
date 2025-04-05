@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { from, map, Observable } from 'rxjs';
 import { addDoc, collection, doc, Firestore, getDocs, updateDoc } from '@angular/fire/firestore';
 import { alumnos, otrosCobro } from '../../../store/state/totalState';
-import { DocumentData, DocumentReference } from '@angular/fire/compat/firestore';
 
 
 @Injectable({
