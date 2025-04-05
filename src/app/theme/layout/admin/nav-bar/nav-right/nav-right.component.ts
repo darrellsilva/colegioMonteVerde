@@ -33,8 +33,10 @@ export class NavRightComponent implements OnInit {
       this.store.select('infoApoderado'),
       this.store.select('correoInsitucional')
     ]).subscribe(([infoApoderado, correoInsitucional]) => {
-      const usuario = infoApoderado.filter(dataAdicional => dataAdicional.correoInstitucional === correoInsitucional.correoInstitucional);
-      this.nombreUsuario = usuario[0].nombre.concat(' ').concat(usuario[0].apellido);
+      if (infoApoderado.length > 0) {
+        const usuario = infoApoderado.filter(dataAdicional => dataAdicional.correoInstitucional === correoInsitucional.correoInstitucional);
+        this.nombreUsuario = usuario[0].nombre.concat(' ').concat(usuario[0].apellido);
+      }
     });
   }
 

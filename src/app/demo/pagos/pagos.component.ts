@@ -180,7 +180,9 @@ export class PagosComponent implements OnInit {
         {
           descripcionGasto: '',
           fechaGasto: '',
-          totalGasto: 0
+          totalGasto: 0,
+          imgBoleta: '',
+          filePath: ''
         }
       ],
       infoPagoAlumno: [

@@ -23,3 +23,9 @@ export const correoInstitucionalActions = createAction('[CORREO INSTITUCIONAL] C
 
 // ACTIVACION SPINNER
 export const activarSpinner = createAction('[SPINNER] Activar Spinner', props<{spinner: boolean}>());
+
+
+// GUARDAR GASTO
+export const guardarGasto = createAction('[GASTO] Guardar Gasto', props<{gasto: any, id: any}>());
+export const deleteGasto = createAction('[GASTO] Delete gastos', props<{gasto: any, id: any}>());
+export const guardadoConExito = createAction('[GASTO] Guardado con exito', props<{guardado: boolean}>());

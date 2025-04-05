@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { select, Store } from '@ngrx/store';
 import { AppState } from '../../store/indexReducer/indexReducer';
 import { alumnos } from '../../store/state/totalState';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { addAlumno } from '../../store/action/totalActions';
 import { AlumnosService } from '../../theme/shared/service/alumnos.service';
 import { SpinnerServiceService } from '../../theme/shared/service/spinner-service.service';
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'app-alumnos',

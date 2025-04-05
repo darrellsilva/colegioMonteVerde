@@ -24,6 +24,8 @@ export interface otrosCobro {
       descripcionGasto: string;
       fechaGasto: string;
       totalGasto: number;
+      imgBoleta: string;
+      filePath: string;
     }
   ];
   infoPagoAlumno: [
@@ -62,4 +64,8 @@ export interface correoInstitucional {
 
 export interface spinner {
   spinner: boolean;
+}
+
+export interface guardadoExitoso{
+  guardado: boolean;
 }
