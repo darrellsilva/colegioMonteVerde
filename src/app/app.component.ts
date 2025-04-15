@@ -11,7 +11,7 @@ import {
   correoInstitucionalActions,
   infoApoderadoActions,
   listarAlumnos,
-  listarOtrosCobros
+  listarOtrosCobros, listarOtrosIngresos
 } from './store/action/totalActions';
 import { Subscription } from 'rxjs';
 import { LoginService } from './theme/shared/service/login.service';
@@ -47,6 +47,7 @@ export class AppComponent implements OnInit {
               } else {
                 this.inicioSesionActiva = true;
                 this.store.dispatch(listarAlumnos());
+                this.store.dispatch(listarOtrosIngresos());
                 this.store.dispatch(listarOtrosCobros());
               }
             }
@@ -54,6 +55,7 @@ export class AppComponent implements OnInit {
         } else {
           this.inicioSesionActiva = true;
           this.store.dispatch(listarAlumnos());
+          this.store.dispatch(listarOtrosIngresos());
           this.store.dispatch(listarOtrosCobros());
         }
       } else {

@@ -48,6 +48,11 @@ const routes: Routes = [
         path: 'gastos',
         loadComponent: () => import('./demo/gastos/gastos.component').then((c) => c.GastosComponent),
         ...canActivate(redirectUnauthorizedToSignin)
+      },
+      {
+        path: 'otrosIngresos',
+        loadComponent: () => import('./demo/otro-ingresos/otro-ingresos.component').then((c) => c.OtroIngresosComponent),
+        ...canActivate(redirectUnauthorizedToSignin)
       }
 
     ]

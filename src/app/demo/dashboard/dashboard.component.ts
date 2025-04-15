@@ -30,6 +30,7 @@ import { DetalleGastoDashboardComponent } from '../detalle-gasto-dashboard/detal
 export class DashboardComponent implements OnInit {
   listaAlumnos: any = [];
   listaOtrosCobros: any = [];
+  listaOtrosIngresos: any = [];
   porcentajePagado: number = 0;
   montoPagado: number = 0;
   montoTotal : number = 0;
@@ -42,7 +43,10 @@ export class DashboardComponent implements OnInit {
   // life cycle event
   ngOnInit() {
     this.spinner.funcionalidadSpinner(false);
-    combineLatest([this.store.select('otrosCobros'), this.store.select('listarAlumnos')]).subscribe(([otrosCobros, alumnosRegistrados]) => {
+    combineLatest([
+      this.store.select('otrosCobros'),
+      this.store.select('listarAlumnos'),
+      this.store.select('otrosIngresos')]).subscribe(([otrosCobros, alumnosRegistrados, otrosIngresos]) => {
       if (otrosCobros['otrosCobros'] != null || otrosCobros['otrosCobros'] != undefined) {
         this.listaOtrosCobros = otrosCobros['otrosCobros'];
       }
@@ -51,6 +55,10 @@ export class DashboardComponent implements OnInit {
         this.listaAlumnos = alumnosRegistrados;
         this.cantidadDealumnosPago();
       }
+      if (otrosIngresos.length > 0) {
+        this.listaOtrosIngresos = otrosIngresos;
+        this.cantidadDealumnosPago()
+      }
     });
   }
 
@@ -58,6 +66,7 @@ export class DashboardComponent implements OnInit {
     const cantidadAlumnos = this.listaAlumnos.length;
     const cantidadDePagosARealizar = cantidadAlumnos * 10;
     let mesesPagados = 0;
+    let montoOtrosIngresos : number = 0;
     this.listaAlumnos.forEach((alumno) => {
       if (alumno.mesesPago.length > 0) {
         mesesPagados = mesesPagados + alumno.mesesPago.length;
@@ -65,6 +74,10 @@ export class DashboardComponent implements OnInit {
     });
     this.montoPagado = mesesPagados * 5000;
     this.porcentajePagado = Math.round((mesesPagados * 100) / cantidadDePagosARealizar);
+
+    this.listaOtrosIngresos.forEach((otrosIngresos: any) => {
+      montoOtrosIngresos = montoOtrosIngresos + Number(otrosIngresos.montoIngreso);
+    })
 
     this.sales = [
       {
@@ -75,16 +88,16 @@ export class DashboardComponent implements OnInit {
         progress: this.porcentajePagado,
         design: 'col-md-6',
         progress_bg: 'progress-c-theme'
+      },
+      {
+        title: 'Otros ingresos',
+        icon: 'icon-arrow-up text-c-green',
+        amount: '$'.concat(String(montoOtrosIngresos)),
+        // percentage: '10%',
+        // progress: 10,
+        // design: 'col-md-6',
+        // progress_bg: 'progress-c-theme'
       }
-      // {
-      //   title: 'Pago Mensualidad Completa',
-      //   icon: 'icon-arrow-up text-c-green',
-      //   amount: '$249.95',
-      //   percentage: '10%',
-      //   progress: 10,
-      //   design: 'col-md-6',
-      //   progress_bg: 'progress-c-theme'
-      // }
     ];
   }
   // public method
@@ -97,16 +110,16 @@ export class DashboardComponent implements OnInit {
       progress: this.porcentajePagado,
       design: 'col-md-6',
       progress_bg: 'progress-c-theme'
+    },
+    {
+      title: 'Otros ingresos',
+      icon: 'icon-arrow-up text-c-green',
+      amount: '$0',
+      // percentage: '10%',
+      // progress: 10,
+      // design: 'col-md-6',
+      // progress_bg: 'progress-c-theme'
     }
-    // {
-    //   title: 'Pago Mensualidad Completa',
-    //   icon: 'icon-arrow-up text-c-green',
-    //   amount: '$249.95',
-    //   percentage: '10%',
-    //   progress: 10,
-    //   design: 'col-md-6',
-    //   progress_bg: 'progress-c-theme'
-    // }
   ];
 
   hayPago(alumnoId: number, pagos: any[]): boolean {

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { from, map, Observable } from 'rxjs';
-import { addDoc, collection, doc, Firestore, getDocs, updateDoc } from '@angular/fire/firestore';
+import { addDoc, collection, deleteDoc, doc, Firestore, getDocs, updateDoc } from '@angular/fire/firestore';
 import { alumnos, otrosCobro } from '../../../store/state/totalState';
 
 
@@ -78,6 +78,11 @@ export class AlumnosService {
   guardarOtrosCobros(otrosCobro: any): Observable<any> {
     const ref = collection(this.firebase, 'otrosCobros');
     return from(addDoc(ref, otrosCobro));
+  }
+
+  deleteOtrosCobros(id: string): Observable<void> {
+    const ref = doc(this.firebase, `otrosCobros/${id}`);
+    return from(deleteDoc(ref));
   }
 
   // FIN OTROS COBROS
