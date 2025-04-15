@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { alumnos, correoInstitucional, infoApoderado, otrosCobro } from '../state/totalState';
+import { alumnos, correoInstitucional, infoApoderado, otrosCobro, otrosIngresos } from '../state/totalState';
 
 // LISTAR ALUMNOS
 export const listarAlumnos = createAction('[ALUMNOS] Listar Alumnos');
@@ -29,3 +29,9 @@ export const activarSpinner = createAction('[SPINNER] Activar Spinner', props<{s
 export const guardarGasto = createAction('[GASTO] Guardar Gasto', props<{gasto: any, id: any}>());
 export const deleteGasto = createAction('[GASTO] Delete gastos', props<{gasto: any, id: any}>());
 export const guardadoConExito = createAction('[GASTO] Guardado con exito', props<{guardado: boolean}>());
+
+// OTROS INGRESOS
+export const listarOtrosIngresos = createAction('[OTROS INGRESOS] Listar Otros Ingresos');
+export const listarOtrosIngresosSucces = createAction('[OTROS INGRESOS] Listar Otros Ingresos Succes', props<{otrosIngresos: otrosIngresos[]}>());
+export const listarOtrosIngresosFail = createAction('[OTROS INGRESOS] Listar Otros Ingresos Fail', props<{error: string}>());
+export const guardarOtrosIngresos = createAction('[OTROS INGRESOS] Guardar Otros Ingresos', props<{otrosIngresos: any}>());

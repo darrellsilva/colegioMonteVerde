@@ -69,3 +69,9 @@ export interface spinner {
 export interface guardadoExitoso{
   guardado: boolean;
 }
+
+export interface otrosIngresos {
+  id: string,
+  descripcionIngreso: string,
+  montoIngreso: number
+}
