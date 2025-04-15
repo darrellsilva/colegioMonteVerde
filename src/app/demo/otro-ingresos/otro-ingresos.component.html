@@ -15,6 +15,7 @@
         <tr>
           <th scope="col">Ingreso</th>
           <th scope="col">Monto</th>
+          <th scope="col"></th>
         </tr>
         </thead>
         <tbody>
@@ -22,6 +23,8 @@
             <tr>
               <td>{{ ingresos.descripcionIngreso }}</td>
               <td>$ {{ ingresos.montoIngreso }}</td>
+              <td>
+                <button type="button" class="btn btn-danger" (click)="eliminarIngreso(ingresos.id)">Eliminar</button>
             </tr>
           }
         </tbody>

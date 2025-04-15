@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { addDoc, collection, DocumentData, DocumentReference, Firestore, getDocs } from '@angular/fire/firestore';
+import { addDoc, collection, deleteDoc, DocumentData, DocumentReference, Firestore, getDocs, doc } from '@angular/fire/firestore';
 import { from, map, Observable } from 'rxjs';
 
 @Injectable({
@@ -29,4 +29,8 @@ export class OtrosIngresosService {
     return from(addDoc(ref, data));
   }
 
+  eliminarIngreso(id: string): Observable<void> {
+    const ref = doc(this.firestore, `otrosIngresos/${id}`);
+    return from(deleteDoc(ref));
+  }
 }

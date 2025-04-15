@@ -46,7 +46,7 @@ export class DashboardComponent implements OnInit {
     combineLatest([
       this.store.select('otrosCobros'),
       this.store.select('listarAlumnos'),
-    this.store.select('otrosIngresos')]).subscribe(([otrosCobros, alumnosRegistrados, otrosIngresos]) => {
+      this.store.select('otrosIngresos')]).subscribe(([otrosCobros, alumnosRegistrados, otrosIngresos]) => {
       if (otrosCobros['otrosCobros'] != null || otrosCobros['otrosCobros'] != undefined) {
         this.listaOtrosCobros = otrosCobros['otrosCobros'];
       }
@@ -57,6 +57,7 @@ export class DashboardComponent implements OnInit {
       }
       if (otrosIngresos.length > 0) {
         this.listaOtrosIngresos = otrosIngresos;
+        this.cantidadDealumnosPago()
       }
     });
   }
@@ -75,7 +76,7 @@ export class DashboardComponent implements OnInit {
     this.porcentajePagado = Math.round((mesesPagados * 100) / cantidadDePagosARealizar);
 
     this.listaOtrosIngresos.forEach((otrosIngresos: any) => {
-      montoOtrosIngresos = montoOtrosIngresos + otrosIngresos.montoIngreso;
+      montoOtrosIngresos = montoOtrosIngresos + Number(otrosIngresos.montoIngreso);
     })
 
     this.sales = [
@@ -113,7 +114,7 @@ export class DashboardComponent implements OnInit {
     {
       title: 'Otros ingresos',
       icon: 'icon-arrow-up text-c-green',
-      amount: '$249.95',
+      amount: '$0',
       // percentage: '10%',
       // progress: 10,
       // design: 'col-md-6',
