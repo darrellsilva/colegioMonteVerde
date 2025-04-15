@@ -55,6 +55,14 @@ export const NavigationItems: NavigationItem[] = [
     icon: 'icon-group',
     children: [
       {
+        id: 'Otros ingresos',
+        title: 'Otros Ingresos',
+        type: 'item',
+        url: '/otrosIngresos',
+        classes: 'nav-item',
+        icon: 'feather icon-file-text'
+      },
+      {
         id: 'alumnos',
         title: 'Alumnos',
         type: 'item',

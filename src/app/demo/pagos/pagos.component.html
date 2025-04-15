@@ -79,6 +79,7 @@
                 aria-expanded="false" aria-controls="collapseTwo" (click)="seleccionarCobro(cobros.id)">
           Pago {{ cobros.titulo }}
         </button>
+
       </h2>
       <div [attr.id]="'prueba' + cobros.idCobro" class="accordion-collapse collapse" [attr.data-bs-target]="'#prueba' + cobros.idCobro">
         <div class="accordion-body">
@@ -103,6 +104,7 @@
                      placeholder="name@example.com">
 
               <button class="btn btn-success" (click)="guardarRegistroPago(cobros.id)"> Guardar Registro</button>
+              <button class="btn btn-danger" (click)="deletePago(cobros.id)">X</button>
             </form>
           </div>
         </div>

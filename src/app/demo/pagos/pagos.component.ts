@@ -200,4 +200,12 @@ export class PagosComponent implements OnInit {
       window.location.reload();
     });
   }
+
+  deletePago(id) {
+    this.spinner.funcionalidadSpinner(true);
+    this.service.deleteOtrosCobros(id).subscribe((response) => {
+      this.spinner.funcionalidadSpinner(false);
+      this.store.dispatch(listarOtrosCobros())
+    })
+  }
 }
