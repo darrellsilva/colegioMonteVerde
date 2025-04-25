@@ -53,6 +53,11 @@ const routes: Routes = [
         path: 'otrosIngresos',
         loadComponent: () => import('./demo/otro-ingresos/otro-ingresos.component').then((c) => c.OtroIngresosComponent),
         ...canActivate(redirectUnauthorizedToSignin)
+      },
+      {
+        path: 'ventasCurso',
+        loadComponent: () => import('./demo/ventas-curso/ventas-curso.component').then((c) => c.VentasCursoComponent),
+        ...canActivate(redirectUnauthorizedToSignin)
       }
 
     ]

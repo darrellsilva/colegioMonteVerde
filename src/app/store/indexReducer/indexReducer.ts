@@ -1,5 +1,5 @@
 import {
-  alumnos, correoInstitucional, guardadoExitoso, infoApoderado, otrosCobro, otrosIngresos, spinner
+  alumnos, correoInstitucional, guardadoExitoso, infoApoderado, otrosCobro, otrosIngresos, spinner, ventasCursos
 } from '../state/totalState';
 import {ActionReducerMap} from "@ngrx/store";
 import { alumnosReducer } from '../reducer/alumnosReducer';
@@ -9,6 +9,7 @@ import { correoInstitucionalReducer } from '../reducer/correoInstitucionalReduce
 import { spinnerReducer } from '../reducer/spinnerReducer';
 import { guardadoExitosoReducer } from '../reducer/guardadoExitosoReducer';
 import { otrosIngresosReducer } from '../reducer/otrosIngresosReducer';
+import { ventasCursoReducer } from '../reducer/ventasCursoReducer';
 
 export interface AppState {
   listarAlumnos: alumnos[]
@@ -18,6 +19,7 @@ export interface AppState {
   spinner: spinner
   guardadoConExito: guardadoExitoso
   otrosIngresos: otrosIngresos[]
+  ventasCurso: ventasCursos[]
 }
 
 export const appReducers: ActionReducerMap<AppState> = {
@@ -27,6 +29,7 @@ export const appReducers: ActionReducerMap<AppState> = {
   correoInsitucional: correoInstitucionalReducer,
   spinner: spinnerReducer,
   guardadoConExito: guardadoExitosoReducer,
-  otrosIngresos: otrosIngresosReducer
+  otrosIngresos: otrosIngresosReducer,
+  ventasCurso: ventasCursoReducer,
 };
 

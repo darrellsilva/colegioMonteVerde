@@ -1,6 +1,6 @@
 import {Action, createReducer, on} from '@ngrx/store';
-import { correoInstitucional, spinner } from '../state/totalState';
-import { activarSpinner, correoInstitucionalActions } from '../action/totalActions';
+import {  spinner } from '../state/totalState';
+import { activarSpinner } from '../action/totalActions';
 
 const initialProductState: spinner = {
   spinner: false
