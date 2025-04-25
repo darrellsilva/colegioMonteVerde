@@ -23,7 +23,6 @@
   }
 
 
-
   @for (otrosCobros of listaOtrosCobros; track otrosCobros.id) {
     @if (otrosCobros.activo) {
       <div ngbAccordion #accordion="ngbAccordion" style="margin-top: 20px">
@@ -32,11 +31,17 @@
             <button ngbAccordionButton>Pagos de {{ otrosCobros.titulo }}</button>
           </h2>
           <div ngbAccordionCollapse>
-            <p style="margin-left: 10px; margin-top: 10px"><span class="fw-bolder">Cantidad Pagada:</span> {{ otrosCobros.montoTotalRecaudado }}</p>
-            <p style="margin-left: 10px"><span class="fw-bolder">Cantidad de alumnos:</span> {{ otrosCobros.cantidadAlumnosPago }}</p>
-            <p style="margin-left: 10px"><span class="fw-bolder">Total Gasto:</span> {{ totalGastos(otrosCobros, otrosCobros.id) }}</p>
-            <p style="margin-left: 10px"><span class="fw-bolder">Monto Final:</span> {{ montoFinal(otrosCobros, otrosCobros.montoTotalRecaudado) }}</p>
-            <p style="margin-left: 10px"><app-detalle-gasto-dashboard [data] ="otrosCobros.infoGasto"></app-detalle-gasto-dashboard></p>
+            <p style="margin-left: 10px; margin-top: 10px"><span
+              class="fw-bolder">Cantidad Pagada:</span> {{ otrosCobros.montoTotalRecaudado }}</p>
+            <p style="margin-left: 10px"><span
+              class="fw-bolder">Cantidad de alumnos:</span> {{ otrosCobros.cantidadAlumnosPago }}</p>
+            <p style="margin-left: 10px"><span
+              class="fw-bolder">Total Gasto:</span> {{ totalGastos(otrosCobros, otrosCobros.id) }}</p>
+            <p style="margin-left: 10px"><span
+              class="fw-bolder">Monto Final:</span> {{ montoFinal(otrosCobros, otrosCobros.montoTotalRecaudado) }}</p>
+            <p style="margin-left: 10px">
+              <app-detalle-gasto-dashboard [data]="otrosCobros.infoGasto"></app-detalle-gasto-dashboard>
+            </p>
             <div ngbAccordionBody>
               <ng-template>
                 <table class="table">
@@ -54,18 +59,18 @@
                         <td>{{ alumnos.apellido }}</td>
                         <td>
                           @if (hayPago(alumnos.id, otrosCobros.infoPagoAlumno)) {
-                              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                   class="bi bi-check-lg text-success" viewBox="0 0 16 16">
-                                <path
-                                  d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425z" />
-                              </svg>
-                            } @else {
-                              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                   class="bi bi-x text-danger" viewBox="0 0 16 16">
-                                <path
-                                  d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708" />
-                              </svg>
-                            }
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                 class="bi bi-check-lg text-success" viewBox="0 0 16 16">
+                              <path
+                                d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425z" />
+                            </svg>
+                          } @else {
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                 class="bi bi-x text-danger" viewBox="0 0 16 16">
+                              <path
+                                d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708" />
+                            </svg>
+                          }
 
                         </td>
                       </tr>
@@ -79,5 +84,41 @@
       </div>
     }
   }
+
+  @if (listaVentasCurso.length > 0) {
+    <div class="accordion accordion-flush" id="accordionFlushExample">
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="flush-headingOne">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                  data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+            Aporte para {{ listaVentasCurso[0].venta }}
+          </button>
+        </h2>
+        <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne"
+             data-bs-parent="#accordionFlushExample">
+          <div class="accordion-body">
+
+              <table class="table">
+                <thead>
+                <tr>
+                  <th scope="col">Alumno</th>
+                  <th scope="col">Monto aportado</th>
+                </tr>
+                </thead>
+                <tbody>
+                  @for (ventasCurso of ordenarLista(listaVentasCurso[0]); track ventasCurso.alumno) {
+                <tr>
+                  <td>{{ventasCurso.alumno === '' ? 'venta por fuera' : ventasCurso.alumno}}</td>
+                  <td>{{montoAportado(ventasCurso, ventasCurso.alumno)}}</td>
+                </tr>
+                  }
+                </tbody>
+              </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  }
+
 
 </div>

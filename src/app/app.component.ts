@@ -11,7 +11,7 @@ import {
   correoInstitucionalActions,
   infoApoderadoActions,
   listarAlumnos,
-  listarOtrosCobros, listarOtrosIngresos
+  listarOtrosCobros, listarOtrosIngresos, listarVentasCurso
 } from './store/action/totalActions';
 import { Subscription } from 'rxjs';
 import { LoginService } from './theme/shared/service/login.service';
@@ -45,23 +45,25 @@ export class AppComponent implements OnInit {
               if (correoInstitucional.length === 0) {
                 this.router.navigate(['infoApoderado']);
               } else {
-                this.inicioSesionActiva = true;
-                this.store.dispatch(listarAlumnos());
-                this.store.dispatch(listarOtrosIngresos());
-                this.store.dispatch(listarOtrosCobros());
+                this.llamadosDispatch();
               }
             }
           });
         } else {
-          this.inicioSesionActiva = true;
-          this.store.dispatch(listarAlumnos());
-          this.store.dispatch(listarOtrosIngresos());
-          this.store.dispatch(listarOtrosCobros());
+          this.llamadosDispatch()
         }
       } else {
         this.inicioSesionActiva = false;
       }
     });
+  }
+
+  private llamadosDispatch() {
+    this.inicioSesionActiva = true;
+    this.store.dispatch(listarAlumnos());
+    this.store.dispatch(listarOtrosIngresos());
+    this.store.dispatch(listarOtrosCobros());
+    this.store.dispatch(listarVentasCurso());
   }
 
   // life cycle hook
