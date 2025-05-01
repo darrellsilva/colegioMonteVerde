@@ -31,9 +31,10 @@ export class DashboardComponent implements OnInit {
   listaAlumnos: any = [];
   listaOtrosCobros: any = [];
   listaOtrosIngresos: any = [];
+  listaVentasCurso: any = [];
   porcentajePagado: number = 0;
   montoPagado: number = 0;
-  montoTotal : number = 0;
+  montoTotal: number = 0;
 
   constructor(
     private store: Store<AppState>,
@@ -46,7 +47,9 @@ export class DashboardComponent implements OnInit {
     combineLatest([
       this.store.select('otrosCobros'),
       this.store.select('listarAlumnos'),
-      this.store.select('otrosIngresos')]).subscribe(([otrosCobros, alumnosRegistrados, otrosIngresos]) => {
+      this.store.select('otrosIngresos'),
+      this.store.select('ventasCurso')
+    ]).subscribe(([otrosCobros, alumnosRegistrados, otrosIngresos, ventasCurso]) => {
       if (otrosCobros['otrosCobros'] != null || otrosCobros['otrosCobros'] != undefined) {
         this.listaOtrosCobros = otrosCobros['otrosCobros'];
       }
@@ -57,7 +60,10 @@ export class DashboardComponent implements OnInit {
       }
       if (otrosIngresos.length > 0) {
         this.listaOtrosIngresos = otrosIngresos;
-        this.cantidadDealumnosPago()
+        this.cantidadDealumnosPago();
+      }
+      if (ventasCurso.length > 0) {
+        this.listaVentasCurso = ventasCurso;
       }
     });
   }
@@ -66,7 +72,7 @@ export class DashboardComponent implements OnInit {
     const cantidadAlumnos = this.listaAlumnos.length;
     const cantidadDePagosARealizar = cantidadAlumnos * 10;
     let mesesPagados = 0;
-    let montoOtrosIngresos : number = 0;
+    let montoOtrosIngresos: number = 0;
     this.listaAlumnos.forEach((alumno) => {
       if (alumno.mesesPago.length > 0) {
         mesesPagados = mesesPagados + alumno.mesesPago.length;
@@ -77,7 +83,7 @@ export class DashboardComponent implements OnInit {
 
     this.listaOtrosIngresos.forEach((otrosIngresos: any) => {
       montoOtrosIngresos = montoOtrosIngresos + Number(otrosIngresos.montoIngreso);
-    })
+    });
 
     this.sales = [
       {
@@ -92,7 +98,7 @@ export class DashboardComponent implements OnInit {
       {
         title: 'Otros ingresos',
         icon: 'icon-arrow-up text-c-green',
-        amount: '$'.concat(String(montoOtrosIngresos)),
+        amount: '$'.concat(String(montoOtrosIngresos))
         // percentage: '10%',
         // progress: 10,
         // design: 'col-md-6',
@@ -100,6 +106,7 @@ export class DashboardComponent implements OnInit {
       }
     ];
   }
+
   // public method
   sales = [
     {
@@ -114,7 +121,7 @@ export class DashboardComponent implements OnInit {
     {
       title: 'Otros ingresos',
       icon: 'icon-arrow-up text-c-green',
-      amount: '$0',
+      amount: '$0'
       // percentage: '10%',
       // progress: 10,
       // design: 'col-md-6',
@@ -141,5 +148,28 @@ export class DashboardComponent implements OnInit {
 
   montoFinal(otrosCobros: any, montoTotalRecaudado: number) {
     return montoTotalRecaudado - this.montoTotal;
+  }
+
+  montoAportado(ventasCurso: any, alumno: any) {
+    let sumaAportado = 0;
+    if (ventasCurso.alumno === alumno) {
+      sumaAportado = sumaAportado + ventasCurso.monto;
+    }
+    return sumaAportado;
+  }
+
+  ordenarLista(listaVentasCursoElement: any) {
+    const listFinal = [];
+
+    listaVentasCursoElement.registroVenta.forEach(element => {
+      const index = listFinal.findIndex(item => item.alumno === element.alumno);
+      if (index === -1) {
+        listFinal.push({ alumno: element.alumno, monto: element.monto });
+      } else {
+        listFinal[index].monto += element.monto;
+      }
+    })
+
+    return listFinal
   }
 }

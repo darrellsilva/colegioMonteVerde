@@ -35,3 +35,8 @@ export const listarOtrosIngresos = createAction('[OTROS INGRESOS] Listar Otros I
 export const listarOtrosIngresosSucces = createAction('[OTROS INGRESOS] Listar Otros Ingresos Succes', props<{otrosIngresos: otrosIngresos[]}>());
 export const listarOtrosIngresosFail = createAction('[OTROS INGRESOS] Listar Otros Ingresos Fail', props<{error: string}>());
 export const guardarOtrosIngresos = createAction('[OTROS INGRESOS] Guardar Otros Ingresos', props<{otrosIngresos: any}>());
+
+// LISTAR VENTAS CURSO
+export const listarVentasCurso = createAction('[VENTAS CURSO] Listar Ventas Curso');
+export const listarVentasCursoSucces = createAction('[VENTAS CURSO] Listar Ventas Curso Succes', props<{ventasCurso: any}>());
+export const listarVentasCursoFail = createAction('[VENTAS CURSO] Listar Ventas Curso Fail', props<{error: string}>());

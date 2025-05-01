@@ -86,14 +86,14 @@ export const NavigationItems: NavigationItem[] = [
         classes: 'nav-item',
         icon: 'feather icon-file-text'
       },
-      // {
-      //   id: 'profesores',
-      //   title: 'Profesores',
-      //   type: 'item',
-      //   url: '/profesores',
-      //   classes: 'nav-item',
-      //   icon: 'feather icon-server'
-      // },
+      {
+        id: 'ventasCurso',
+        title: 'Ventas Curso',
+        type: 'item',
+        url: '/ventasCurso',
+        classes: 'nav-item',
+        icon: 'feather icon-file-text'
+      },
       // {
       //   id: 'asistencia',
       //   title: 'Asistencia',

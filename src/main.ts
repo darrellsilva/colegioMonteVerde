@@ -18,8 +18,8 @@ import { FIREBASE_OPTIONS } from '@angular/fire/compat';
 import { environment } from './environments/environment';
 import { infoApoderadosEffects } from './app/store/effects/infoApoderadoEffects';
 import { AngularFireStorageModule } from '@angular/fire/compat/storage';
-import { otrosIngresosReducer } from './app/store/reducer/otrosIngresosReducer';
 import { OtrosIngresosEffects } from './app/store/effects/otrosIngresosEffects';
+import { VentasCursosEffects } from './app/store/effects/ventasCursosEffects';
 
 if (environment.production) {
   enableProdMode();
@@ -30,7 +30,7 @@ bootstrapApplication(AppComponent,{
     importProvidersFrom(BrowserModule, AppRoutingModule, AngularFireStorageModule),
     provideAnimations(),
     provideStore(appReducers),
-    provideEffects([AlumnosEffects, OtrosCobrosEffects, infoApoderadosEffects, OtrosIngresosEffects]),
+    provideEffects([AlumnosEffects, OtrosCobrosEffects, infoApoderadosEffects, OtrosIngresosEffects, VentasCursosEffects]),
     provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
     provideFirestore(() => getFirestore()),
     provideAuth(() => getAuth()),

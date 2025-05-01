@@ -1,0 +1,61 @@
+<div class="card">
+  <div class="card-body">
+    <form [formGroup]="formRegisterVentas">
+    <div class="mb-3">
+      <label for="cantidad" class="form-label">Cantidad</label>
+      <input type="number" class="form-control" id="cantidad" formControlName="cantidad">
+    </div>
+    <div class="mb-3">
+      <label for="monto" class="form-label">Monto</label>
+      <input type="number" class="form-control" id="monto" formControlName="monto">
+    </div>
+    <div class="mb-3">
+      <label for="productoVendido" class="form-label">Producto vendido</label>
+      <input type="text" class="form-control" id="productoVendido" formControlName="productoVendido">
+    </div>
+    <div class="mb-3">
+      <label for="selectId" class="form-label">Alumno</label>
+      <select class="form-select" id="selectId" aria-label="Default select example" (change)="seleccionarAlumno($event)">
+        <option selected>Alumnos</option>
+        @for (alumnos of listAlumnos; track alumnos.id) {
+          <option value="{{ alumnos.id }}">{{ alumnos.nombre }} {{alumnos.apellido}}</option>
+        }
+      </select>
+    </div>
+
+    <button type="button" class="btn btn-success" (click)="guardarVenta()">
+      Agregar venta
+    </button>
+    </form>
+    @if (registroVentas.length > 0) {
+      <table class="table">
+        <thead>
+        <tr>
+          <th scope="col">Alumno</th>
+          <th scope="col">Prod. vendido</th>
+          <th scope="col">Monto</th>
+          <th scope="col">Cant.</th>
+          <th scope="col"></th>
+        </tr>
+        </thead>
+        <tbody>
+          @for (register of registroVentas; track register.id) {
+            <tr>
+              <td>{{ register.alumno }}</td>
+              <td>{{ register.productoVendido}}</td>
+              <td>{{ register.monto }}</td>
+              <td>{{register.cantidad}}</td>
+              <td style="background: red; color: white; text-align: center; cursor: pointer" (click)="eliminarPedido(register.numeroIdentificador)">X</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    }
+
+  </div>
+  @if (registroVentas.length > 0) {
+    <div class="card-footer d-flex justify-content-end">
+      <p><span class="fw-bolder">Monto:</span> $ {{ montoFinal(registroVentas) }}</p>
+    </div>
+  }
+</div>

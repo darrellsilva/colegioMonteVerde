@@ -75,3 +75,18 @@ export interface otrosIngresos {
   descripcionIngreso: string,
   montoIngreso: number
 }
+
+export interface ventasCursos {
+  id:string,
+  registroVenta: informacionVenta[],
+  venta: string
+}
+
+export interface informacionVenta {
+  idAlumno: string,
+  alumno: string,
+  cantidad: number,
+  numeroIdentificador: number,
+  productoVendido: string,
+  monto: number,
+}
