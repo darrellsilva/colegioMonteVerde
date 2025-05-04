@@ -97,7 +97,7 @@
         <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne"
              data-bs-parent="#accordionFlushExample">
           <div class="accordion-body">
-
+            <p>Monto recaudado: <span class="fw-bolder">$ {{montoTotalRecaudado(listaVentasCurso[0])}}</span> </p>
               <table class="table">
                 <thead>
                 <tr>
@@ -109,7 +109,7 @@
                   @for (ventasCurso of ordenarLista(listaVentasCurso[0]); track ventasCurso.alumno) {
                 <tr>
                   <td>{{ventasCurso.alumno === '' ? 'venta por fuera' : ventasCurso.alumno}}</td>
-                  <td>{{montoAportado(ventasCurso, ventasCurso.alumno)}}</td>
+                  <td>$ {{montoAportado(ventasCurso, ventasCurso.alumno)}}</td>
                 </tr>
                   }
                 </tbody>

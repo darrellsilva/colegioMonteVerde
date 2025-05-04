@@ -18,7 +18,6 @@ import { AppState } from '../../store/indexReducer/indexReducer';
 import { Store } from '@ngrx/store';
 import { combineLatest } from 'rxjs';
 import { SpinnerServiceService } from '../../theme/shared/service/spinner-service.service';
-import { InfoProfesoresComponent } from '../info-profesores/info-profesores.component';
 import { DetalleGastoDashboardComponent } from '../detalle-gasto-dashboard/detalle-gasto-dashboard.component';
 
 @Component({
@@ -161,15 +160,30 @@ export class DashboardComponent implements OnInit {
   ordenarLista(listaVentasCursoElement: any) {
     const listFinal = [];
 
-    listaVentasCursoElement.registroVenta.forEach(element => {
-      const index = listFinal.findIndex(item => item.alumno === element.alumno);
-      if (index === -1) {
-        listFinal.push({ alumno: element.alumno, monto: element.monto });
-      } else {
-        listFinal[index].monto += element.monto;
-      }
-    })
+      listaVentasCursoElement.registroVenta.forEach(element => {
+        const index = listFinal.findIndex(item => item.alumno === element.alumno);
+        if (index === -1) {
+          listFinal.push({ alumno: element.alumno, monto: element.monto });
+        } else {
+          listFinal[index].monto += element.monto;
+        }
+      })
 
-    return listFinal
+      this.listaAlumnos.forEach((alumno) => {
+        const alumnoEncontrado = listFinal.find((item) => item.alumno === alumno.nombre.concat(' ').concat(alumno.apellido));
+        if (alumnoEncontrado === undefined) {
+          listFinal.push({ alumno: alumno.nombre.concat(' ').concat(alumno.apellido), monto: 0 });
+        }
+      })
+
+    return listFinal.sort((a, b) => b.monto - a.monto);
+  }
+
+  montoTotalRecaudado(listaVentasCursoElement: any) {
+    let montoTotalRecaudado = 0
+    listaVentasCursoElement.registroVenta.forEach((element) => {
+      montoTotalRecaudado = montoTotalRecaudado + element.monto;
+    });
+    return montoTotalRecaudado;
   }
 }
