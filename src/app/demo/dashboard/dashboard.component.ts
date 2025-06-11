@@ -29,11 +29,14 @@ import { DetalleGastoDashboardComponent } from '../detalle-gasto-dashboard/detal
 export class DashboardComponent implements OnInit {
   listaAlumnos: any = [];
   listaOtrosCobros: any = [];
+  gastosGenerales: any = [];
   listaOtrosIngresos: any = [];
   listaVentasCurso: any = [];
   porcentajePagado: number = 0;
   montoPagado: number = 0;
   montoTotal: number = 0;
+  montoOtrosIngresos: number = 0;
+
 
   constructor(
     private store: Store<AppState>,
@@ -47,8 +50,9 @@ export class DashboardComponent implements OnInit {
       this.store.select('otrosCobros'),
       this.store.select('listarAlumnos'),
       this.store.select('otrosIngresos'),
-      this.store.select('ventasCurso')
-    ]).subscribe(([otrosCobros, alumnosRegistrados, otrosIngresos, ventasCurso]) => {
+      this.store.select('ventasCurso'),
+      this.store.select('gastosGenerales')
+    ]).subscribe(([otrosCobros, alumnosRegistrados, otrosIngresos, ventasCurso, gastosGenerales]) => {
       if (otrosCobros['otrosCobros'] != null || otrosCobros['otrosCobros'] != undefined) {
         this.listaOtrosCobros = otrosCobros['otrosCobros'];
       }
@@ -64,6 +68,10 @@ export class DashboardComponent implements OnInit {
       if (ventasCurso.length > 0) {
         this.listaVentasCurso = ventasCurso;
       }
+      if (gastosGenerales.length > 0) {
+        this.gastosGenerales = gastosGenerales;
+        this.cantidadDealumnosPago();
+      }
     });
   }
 
@@ -71,7 +79,6 @@ export class DashboardComponent implements OnInit {
     const cantidadAlumnos = this.listaAlumnos.length;
     const cantidadDePagosARealizar = cantidadAlumnos * 10;
     let mesesPagados = 0;
-    let montoOtrosIngresos: number = 0;
     this.listaAlumnos.forEach((alumno) => {
       if (alumno.mesesPago.length > 0) {
         mesesPagados = mesesPagados + alumno.mesesPago.length;
@@ -80,13 +87,14 @@ export class DashboardComponent implements OnInit {
     this.montoPagado = mesesPagados * 5000;
     this.porcentajePagado = Math.round((mesesPagados * 100) / cantidadDePagosARealizar);
 
+    this.montoOtrosIngresos = 0;
     this.listaOtrosIngresos.forEach((otrosIngresos: any) => {
-      montoOtrosIngresos = montoOtrosIngresos + Number(otrosIngresos.montoIngreso);
+      this.montoOtrosIngresos = this.montoOtrosIngresos + Number(otrosIngresos.montoIngreso);
     });
 
     this.sales = [
       {
-        title: 'Monto Total Mensualidad',
+        title: 'Monto Total Recaudado',
         icon: 'icon-arrow-up text-c-green',
         amount: '$'.concat(String(this.montoPagado)),
         percentage: String(this.porcentajePagado).concat('%'),
@@ -97,11 +105,16 @@ export class DashboardComponent implements OnInit {
       {
         title: 'Otros ingresos',
         icon: 'icon-arrow-up text-c-green',
-        amount: '$'.concat(String(montoOtrosIngresos))
+        amount: '$'.concat(String(this.montoOtrosIngresos))
         // percentage: '10%',
         // progress: 10,
         // design: 'col-md-6',
         // progress_bg: 'progress-c-theme'
+      },
+      {
+        title: 'Gastos Generales',
+        icon: 'icon-arrow-down text-c-red',
+        amount: '$'.concat(String(this.sumaGastosGenerale(this.gastosGenerales))),
       }
     ];
   }
@@ -109,7 +122,7 @@ export class DashboardComponent implements OnInit {
   // public method
   sales = [
     {
-      title: 'Monto Total Mensualidad',
+      title: 'Monto Total Recaudado',
       icon: 'icon-arrow-up text-c-green',
       amount: '$'.concat(String(this.montoPagado)),
       percentage: String(this.porcentajePagado).concat('%'),
@@ -122,6 +135,14 @@ export class DashboardComponent implements OnInit {
       icon: 'icon-arrow-up text-c-green',
       amount: '$0'
       // percentage: '10%',
+      // progress: 10,
+      // design: 'col-md-6',
+      // progress_bg: 'progress-c-theme'
+    },
+    {
+      title: 'Gastos Generales',
+      icon: 'icon-arrow-down text-c-red',
+      amount: '$0',
       // progress: 10,
       // design: 'col-md-6',
       // progress_bg: 'progress-c-theme'
@@ -160,30 +181,44 @@ export class DashboardComponent implements OnInit {
   ordenarLista(listaVentasCursoElement: any) {
     const listFinal = [];
 
-      listaVentasCursoElement.registroVenta.forEach(element => {
-        const index = listFinal.findIndex(item => item.alumno === element.alumno);
-        if (index === -1) {
-          listFinal.push({ alumno: element.alumno, monto: element.monto });
-        } else {
-          listFinal[index].monto += element.monto;
-        }
-      })
+    listaVentasCursoElement.registroVenta.forEach((element) => {
+      const index = listFinal.findIndex((item) => item.alumno === element.alumno);
+      if (index === -1) {
+        listFinal.push({ alumno: element.alumno, monto: element.monto });
+      } else {
+        listFinal[index].monto += element.monto;
+      }
+    });
 
-      this.listaAlumnos.forEach((alumno) => {
-        const alumnoEncontrado = listFinal.find((item) => item.alumno === alumno.nombre.concat(' ').concat(alumno.apellido));
-        if (alumnoEncontrado === undefined) {
-          listFinal.push({ alumno: alumno.nombre.concat(' ').concat(alumno.apellido), monto: 0 });
-        }
-      })
+    this.listaAlumnos.forEach((alumno) => {
+      const alumnoEncontrado = listFinal.find((item) => item.alumno === alumno.nombre.concat(' ').concat(alumno.apellido));
+      if (alumnoEncontrado === undefined) {
+        listFinal.push({ alumno: alumno.nombre.concat(' ').concat(alumno.apellido), monto: 0 });
+      }
+    });
 
     return listFinal.sort((a, b) => b.monto - a.monto);
   }
 
   montoTotalRecaudado(listaVentasCursoElement: any) {
-    let montoTotalRecaudado = 0
+    let montoTotalRecaudado = 0;
     listaVentasCursoElement.registroVenta.forEach((element) => {
       montoTotalRecaudado = montoTotalRecaudado + element.monto;
     });
     return montoTotalRecaudado;
+  }
+
+  sumaGastosGenerale(gastosGenerales: any) {
+    let totalGastos = 0;
+    if (gastosGenerales.length > 0) {
+      gastosGenerales.forEach((element) => {
+        totalGastos = totalGastos + Number(element.montoGasto);
+      })
+    }
+    return totalGastos;
+  }
+
+  calculoFinal() {
+    return this.montoPagado + this.montoOtrosIngresos - this.sumaGastosGenerale(this.gastosGenerales);
   }
 }

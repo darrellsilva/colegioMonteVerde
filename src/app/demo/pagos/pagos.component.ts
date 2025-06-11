@@ -176,22 +176,8 @@ export class PagosComponent implements OnInit {
       idCobro: this.formCobro.value.titulo.replace(/\s/g, ''),
       montoTotalRecaudado: 0,
       cantidadAlumnosPago: 0,
-      infoGasto: [
-        {
-          descripcionGasto: '',
-          fechaGasto: '',
-          totalGasto: 0,
-          imgBoleta: '',
-          filePath: ''
-        }
-      ],
-      infoPagoAlumno: [
-        {
-          fechaPago: '',
-          montoPago: 0,
-          idAlumno: ''
-        }
-      ]
+      infoGasto: [],
+      infoPagoAlumno: []
     };
 
 

@@ -10,7 +10,7 @@ import { AppState } from './store/indexReducer/indexReducer';
 import {
   correoInstitucionalActions,
   infoApoderadoActions,
-  listarAlumnos,
+  listarAlumnos, listarGastosGenerales,
   listarOtrosCobros, listarOtrosIngresos, listarVentasCurso
 } from './store/action/totalActions';
 import { Subscription } from 'rxjs';
@@ -64,6 +64,7 @@ export class AppComponent implements OnInit {
     this.store.dispatch(listarOtrosIngresos());
     this.store.dispatch(listarOtrosCobros());
     this.store.dispatch(listarVentasCurso());
+    this.store.dispatch(listarGastosGenerales());
   }
 
   // life cycle hook

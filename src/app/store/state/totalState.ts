@@ -20,20 +20,20 @@ export interface otrosCobro {
   montoTotalRecaudado: number;
   cantidadAlumnosPago: number;
   infoGasto: [
-    {
-      descripcionGasto: string;
-      fechaGasto: string;
-      totalGasto: number;
-      imgBoleta: string;
-      filePath: string;
-    }
+    // {
+    //   descripcionGasto: string;
+    //   fechaGasto: string;
+    //   totalGasto: number;
+    //   imgBoleta: string;
+    //   filePath: string;
+    // }
   ];
   infoPagoAlumno: [
-    {
-      fechaPago: string;
-      montoPago: number;
-      idAlumno: string;
-    }
+    // {
+    //   fechaPago: string;
+    //   montoPago: number;
+    //   idAlumno: string;
+    // }
   ];
 }
 
@@ -66,27 +66,36 @@ export interface spinner {
   spinner: boolean;
 }
 
-export interface guardadoExitoso{
+export interface guardadoExitoso {
   guardado: boolean;
 }
 
 export interface otrosIngresos {
-  id: string,
-  descripcionIngreso: string,
-  montoIngreso: number
+  id: string;
+  descripcionIngreso: string;
+  montoIngreso: number;
 }
 
 export interface ventasCursos {
-  id:string,
-  registroVenta: informacionVenta[],
-  venta: string
+  id: string;
+  registroVenta: informacionVenta[];
+  venta: string;
+}
+
+export interface gastosGenerales {
+  id: string;
+  detalleGasto: string;
+  fechaGasto: string;
+  foto: string;
+  montoGasto: string;
+  pathImagen: string;
 }
 
 export interface informacionVenta {
-  idAlumno: string,
-  alumno: string,
-  cantidad: number,
-  numeroIdentificador: number,
-  productoVendido: string,
-  monto: number,
+  idAlumno: string;
+  alumno: string;
+  cantidad: number;
+  numeroIdentificador: number;
+  productoVendido: string;
+  monto: number;
 }
