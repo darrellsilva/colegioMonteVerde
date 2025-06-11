@@ -1,12 +1,13 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { activarSpinner, guardarGasto } from '../../store/action/totalActions';
+import { activarSpinner, guardarGasto, listarGastosGenerales } from '../../store/action/totalActions';
 import { finalize } from 'rxjs';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { StorageService } from '../../theme/shared/service/storage.service';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../store/indexReducer/indexReducer';
 import { SaveGastoGeneralService } from '../../theme/shared/service/save-gasto-general.service';
+import { gastosGenerales } from '../../store/state/totalState';
 
 @Component({
   selector: 'app-gastos-generales',
@@ -14,14 +15,15 @@ import { SaveGastoGeneralService } from '../../theme/shared/service/save-gasto-g
   templateUrl: './gastos-generales.component.html',
   styleUrl: './gastos-generales.component.scss'
 })
-export class GastosGeneralesComponent {
+export class GastosGeneralesComponent implements OnInit{
 
   base64Image: string | ArrayBuffer | null = null;
   filePath: string = '';
   urlImagen: string | ArrayBuffer | null = null;
   file: any;
-  idSeleccionado: any;
   formGastosGenerales: FormGroup;
+  gastosGenerales: gastosGenerales[] = [];
+  urlImg: string = '';
 
   constructor(private storage: AngularFireStorage,
               private storageService: StorageService,
@@ -31,6 +33,12 @@ export class GastosGeneralesComponent {
     this.formGastosGenerales = this.fb.group({
       detalleGasto: [''],
       montoGasto: [''],
+    })
+  }
+
+  ngOnInit(): void {
+    this.store.select('gastosGenerales').subscribe(gastosGenerales => {
+      this.gastosGenerales = gastosGenerales;
     })
   }
 
@@ -127,7 +135,13 @@ export class GastosGeneralesComponent {
     debugger
     this.saveGastos.guardarGastoGeneral(newGasto).subscribe(response => {
       this.store.dispatch(activarSpinner({ spinner: false }));
+      this.formGastosGenerales.reset();
+      this.urlImagen = '';
+      this.store.dispatch(listarGastosGenerales());
     });
   }
 
+  imgGasto(foto: string) {
+    this.urlImg = foto;
+  }
 }

@@ -1,4 +1,10 @@
 <div class="row">
+
+  <div class="alert alert-info d-flex justify-content-between" role="alert">
+    <h3>Monto Final: </h3>
+    <h3 class="fw-bolder">$ {{calculoFinal()}}</h3>
+  </div>
+
   @for (sale of sales; track sale) {
     <div class="{{ sale.design }} col-xl-4">
       <app-card [hidHeader]="true">
@@ -97,23 +103,23 @@
         <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne"
              data-bs-parent="#accordionFlushExample">
           <div class="accordion-body">
-            <p>Monto recaudado: <span class="fw-bolder">$ {{montoTotalRecaudado(listaVentasCurso[0])}}</span> </p>
-              <table class="table">
-                <thead>
-                <tr>
-                  <th scope="col">Alumno</th>
-                  <th scope="col">Monto aportado</th>
-                </tr>
-                </thead>
-                <tbody>
-                  @for (ventasCurso of ordenarLista(listaVentasCurso[0]); track ventasCurso.alumno) {
-                <tr>
-                  <td>{{ventasCurso.alumno === '' ? 'venta por fuera' : ventasCurso.alumno}}</td>
-                  <td>$ {{montoAportado(ventasCurso, ventasCurso.alumno)}}</td>
-                </tr>
-                  }
-                </tbody>
-              </table>
+            <p>Monto recaudado: <span class="fw-bolder">$ {{ montoTotalRecaudado(listaVentasCurso[0]) }}</span></p>
+            <table class="table">
+              <thead>
+              <tr>
+                <th scope="col">Alumno</th>
+                <th scope="col">Monto aportado</th>
+              </tr>
+              </thead>
+              <tbody>
+                @for (ventasCurso of ordenarLista(listaVentasCurso[0]); track ventasCurso.alumno) {
+                  <tr>
+                    <td>{{ ventasCurso.alumno === '' ? 'venta por fuera' : ventasCurso.alumno }}</td>
+                    <td>$ {{ montoAportado(ventasCurso, ventasCurso.alumno) }}</td>
+                  </tr>
+                }
+              </tbody>
+            </table>
           </div>
         </div>
       </div>
