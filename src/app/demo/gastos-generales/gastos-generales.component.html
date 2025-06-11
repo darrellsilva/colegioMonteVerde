@@ -1,0 +1,23 @@
+<form [formGroup]="formGastosGenerales">
+<div class="mb-3">
+  <label for="gasto" class="form-label">Gasto</label>
+  <input type="text" class="form-control" id="gasto" formControlName="detalleGasto" placeholder="Parcela Paseo">
+</div>
+<div class="mb-3">
+  <label for="montoGasto" class="form-label">Monto Gasto</label>
+  <input type="text" class="form-control" id="montoGasto" formControlName="montoGasto" placeholder="$50.000">
+</div>
+
+<div class="mb-3">
+  <label for="exampleFormControlInput1" class="form-label">Cargar imagen</label>
+  <input type="file" class="form-control" id="exampleFormControlInput1"  formControlName="img" accept="image/*"
+         (change)="onFileChange($event)">
+</div>
+@if (base64Image !== '' && base64Image !== null) {
+  <div style="text-align: center;">
+    <img src="{{base64Image}}" alt="imagenBoleta" width="250px" height="250px">
+  </div>
+}
+</form>
+<button type="button" class="btn btn-primary" (click)="guardarGastoConFoto()">Guardar Gastos generales
+</button>

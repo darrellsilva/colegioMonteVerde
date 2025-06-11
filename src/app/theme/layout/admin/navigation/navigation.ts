@@ -94,6 +94,14 @@ export const NavigationItems: NavigationItem[] = [
         classes: 'nav-item',
         icon: 'feather icon-file-text'
       },
+      {
+        id: 'gastosGenerales',
+        title: 'Gastos Generales',
+        type: 'item',
+        url: '/gastosGenerales',
+        classes: 'nav-item',
+        icon: 'feather icon-file-text'
+      },
       // {
       //   id: 'asistencia',
       //   title: 'Asistencia',

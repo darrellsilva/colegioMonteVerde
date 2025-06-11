@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { alumnos, correoInstitucional, infoApoderado, otrosCobro, otrosIngresos } from '../state/totalState';
+import { alumnos, gastosGenerales, infoApoderado, otrosCobro, otrosIngresos } from '../state/totalState';
 
 // LISTAR ALUMNOS
 export const listarAlumnos = createAction('[ALUMNOS] Listar Alumnos');
@@ -40,3 +40,8 @@ export const guardarOtrosIngresos = createAction('[OTROS INGRESOS] Guardar Otros
 export const listarVentasCurso = createAction('[VENTAS CURSO] Listar Ventas Curso');
 export const listarVentasCursoSucces = createAction('[VENTAS CURSO] Listar Ventas Curso Succes', props<{ventasCurso: any}>());
 export const listarVentasCursoFail = createAction('[VENTAS CURSO] Listar Ventas Curso Fail', props<{error: string}>());
+
+// GUARDAR GASTO GENERAL
+export const listarGastosGenerales = createAction('[GASTO GENERAL] Guardar Gasto General');
+export const listarGastosGeneralesSucces = createAction('[GASTO GENERAL] Guardar Gasto General Succes', props<{gastosGenerales: gastosGenerales[]}>());
+export const listarGastosGeneralesFail = createAction('[GASTO GENERAL] Guardar Gasto General Fail', props<{error: string}>());
